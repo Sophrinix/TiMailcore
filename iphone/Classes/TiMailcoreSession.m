@@ -13,7 +13,6 @@
     atHost:(NSString*)host
     atPort:(int)port
     withCtype:(MCOConnectionType)ctype
-    cb:(void (^)(bool))cb
 {
     self = [super init];
     if (self != nil) {
@@ -23,8 +22,6 @@
         [session setUsername:email];
         [session setPassword:pass];
         [session setConnectionType:ctype];
-        
-        cb(false);
     }
     return self;
 }
@@ -34,47 +31,41 @@
     [super dealloc];
 }
 
-
-
-/*
-- (Boolean)checkAccount {
-    __block bool success = true;
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
+- (bool)checkAccount: (void (^)(bool))cb {
     MCOIMAPOperation * op = [session checkAccountOperation];
     [op start:^(NSError * error) {
         if(error) {
-            success = false;
+            cb(false);
+        } else {
+            cb(true);
         }
-        dispatch_semaphore_signal(sema);
     }];
-    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-    dispatch_release(sema);
-    
-    return success;
 }
 
-- (id)getFolders:(id)args {
-    __block NSMutableArray * result = [[NSMutableArray alloc] init];
+- (void)getFolders:(id)args {
+    NSInteger nargs = [args count];
     
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
-    MCOIMAPFetchFoldersOperation * op = [session fetchAllFoldersOperation];
-    [op start:^(NSError * error, NSArray *folders) {
-        if(error) {
-            
-        } else {
-            for(MCOIMAPFolder * folder in folders) {
-                [result addObject: folder.path];
+    if (nargs >= 1) {
+        NSMutableArray * result = [[NSMutableArray alloc] init];
+        MCOIMAPFetchFoldersOperation * op = [session fetchAllFoldersOperation];
+        [op start:^(NSError * error, NSArray *folders) {
+            if(error) {
+                [[args objectAtIndex:0] call:@[error, @[]] thisObject:nil];
+            } else {
+                for(MCOIMAPFolder * folder in folders) {
+                    [result addObject: folder.path];
+                }
+                [[args objectAtIndex:0] call:@[[NSNull null], result] thisObject:nil];
             }
-        }
-        dispatch_semaphore_signal(sema);
-    }];
-    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-    dispatch_release(sema);
-    
-    return result;
+        }];
+
+    } else {
+        NSLog(@"[ERROR] Too few arguments to getFolders: callback(error, [folders])");
+    }
 }
+
+/*
+
 
 - (id)getMailCount:(id)args {
     __block int result = 0;

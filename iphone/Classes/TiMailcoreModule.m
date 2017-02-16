@@ -88,29 +88,39 @@
 -(id)createSession:(id)args {
     NSInteger nargs = [args count];
     
-    if (nargs >= 2) {
+    if (nargs >= 1) {
         TiMailcoreSession * session = nil;
+        id params = [args objectAtIndex:0];
         
-        NSDictionary * params = [args objectAtIndex:0];
-        KrollCallback* callback = [args objectAtIndex:1];
+        NSString * email = [params objectForKey:@"email"];
+        NSString * password = [params objectForKey:@"password"];
+        NSString * atHost = [params objectForKey:@"host"];
+        int port = [params objectForKey:@"port"] ? [TiUtils intValue:[params objectForKey:@"port"]] : 993;
+        MCOConnectionType ctype = [params objectForKey:@"ctype"] ? [TiUtils intValue:[params objectForKey:@"ctype"]] : MCOConnectionTypeTLS;
         
         session = [[TiMailcoreSession alloc]
-            init:[params valueForKey:@"email"]
-            password:[params valueForKey:@"password"]
-            atHost:[params valueForKey:@"host"]
-            atPort:[params valueForKey:@"port"] || 993
-            withCtype:[params valueForKey:@"ctype"] || MCOConnectionTypeTLS
-            cb:^(bool success) {
-                if(success) {
-                    [callback call:@[] thisObject:nil];
-                } else {
-                    NSLog(@"[ERROR] could not authenticate session.");
-                    [session release];
-                }
-            }
+           init: email
+           password: password
+           atHost: atHost
+           atPort: port
+           withCtype: ctype
+        ];
+        
+        [session checkAccount: ^(bool success)
+           {
+               if(success) {
+                   if([params objectForKey:@"onsuccess"]) {
+                       [[params objectForKey:@"onsuccess"] call: @[session] thisObject:nil];
+                   }
+               } else {
+                   if([params objectForKey:@"onerror"]) {
+                       [[params objectForKey:@"onerror"] call: @[@"Could not authenticate."] thisObject:nil];
+                   }
+               }
+           }
         ];
     } else {
-        NSLog(@"[ERROR] Too few arguments to createSession: {email, password, host, <port>, <ctype>}, callback");
+        NSLog(@"[ERROR] Too few arguments to createSession: {email, password, host, <port>, <ctype>, <onsuccess(session)>, <onerror(error)>}");
     }
     
     return nil;

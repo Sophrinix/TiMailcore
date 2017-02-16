@@ -14,8 +14,9 @@
     password:(NSString*)pass
     atHost:(NSString*)host
     atPort:(int)port
-    withCtype:(MCOConnectionType)ctype
-    cb:(void (^)(bool))cb;
+    withCtype:(MCOConnectionType)ctype;
+
+- (bool)checkAccount: (void (^)(bool))cb;
 /*
 
 
