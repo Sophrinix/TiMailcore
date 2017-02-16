@@ -1,0 +1,4 @@
+Titanium Mailcore module
+===========================================
+
+A module for operating a simplified API of the mailcore interface to interact with an IMAP service.

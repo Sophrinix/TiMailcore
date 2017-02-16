@@ -1,0 +1,914 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		24416B8111C4CA220047AFDD /* Build & Test */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 24416B8A11C4CA520047AFDD /* Build configuration list for PBXAggregateTarget "Build & Test" */;
+			buildPhases = (
+				24416B8011C4CA220047AFDD /* ShellScript */,
+			);
+			dependencies = (
+				24416B8511C4CA280047AFDD /* PBXTargetDependency */,
+			);
+			name = "Build & Test";
+			productName = "Build & test";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		0A7B40BC1E556DF30086CBF6 /* TiMailcoreSessionProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A7B40BA1E556DF30086CBF6 /* TiMailcoreSessionProxy.h */; };
+		0A7B40BD1E556DF30086CBF6 /* TiMailcoreSessionProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B40BB1E556DF30086CBF6 /* TiMailcoreSessionProxy.m */; };
+		0A7B41991E55749F0086CBF6 /* libMailCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A7B41981E55749F0086CBF6 /* libMailCore-ios.a */; };
+		0A81736D1E5590760020C00B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A81736C1E5590760020C00B /* Security.framework */; };
+		0A81736F1E5590830020C00B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A81736E1E5590830020C00B /* CFNetwork.framework */; };
+		24DD6CF91134B3F500162E58 /* TiMailcoreModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DD6CF71134B3F500162E58 /* TiMailcoreModule.h */; };
+		24DD6CFA1134B3F500162E58 /* TiMailcoreModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DD6CF81134B3F500162E58 /* TiMailcoreModule.m */; };
+		24DE9E1111C5FE74003F90F6 /* TiMailcoreModuleAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DE9E0F11C5FE74003F90F6 /* TiMailcoreModuleAssets.h */; };
+		24DE9E1211C5FE74003F90F6 /* TiMailcoreModuleAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DE9E1011C5FE74003F90F6 /* TiMailcoreModuleAssets.m */; };
+		AA747D9F0F9514B9006C5449 /* TiMailcore_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* TiMailcore_Prefix.pch */; };
+		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		24416B8411C4CA280047AFDD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = TiMailcore;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0A7B40BA1E556DF30086CBF6 /* TiMailcoreSessionProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TiMailcoreSessionProxy.h; path = Classes/TiMailcoreSessionProxy.h; sourceTree = "<group>"; };
+		0A7B40BB1E556DF30086CBF6 /* TiMailcoreSessionProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TiMailcoreSessionProxy.m; path = Classes/TiMailcoreSessionProxy.m; sourceTree = "<group>"; };
+		0A7B40BF1E556EBE0086CBF6 /* MailCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MailCore.h; sourceTree = "<group>"; };
+		0A7B40C01E556EBE0086CBF6 /* MCAbstract.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAbstract.h; sourceTree = "<group>"; };
+		0A7B40C11E556EBE0086CBF6 /* MCAbstractMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAbstractMessage.h; sourceTree = "<group>"; };
+		0A7B40C21E556EBE0086CBF6 /* MCAbstractMessagePart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAbstractMessagePart.h; sourceTree = "<group>"; };
+		0A7B40C31E556EBE0086CBF6 /* MCAbstractMultipart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAbstractMultipart.h; sourceTree = "<group>"; };
+		0A7B40C41E556EBE0086CBF6 /* MCAbstractPart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAbstractPart.h; sourceTree = "<group>"; };
+		0A7B40C51E556EBE0086CBF6 /* MCAccountValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAccountValidator.h; sourceTree = "<group>"; };
+		0A7B40C61E556EBE0086CBF6 /* MCAddress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAddress.h; sourceTree = "<group>"; };
+		0A7B40C71E556EBE0086CBF6 /* MCAddressDisplay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAddressDisplay.h; sourceTree = "<group>"; };
+		0A7B40C81E556EBE0086CBF6 /* MCArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCArray.h; sourceTree = "<group>"; };
+		0A7B40C91E556EBE0086CBF6 /* MCAssert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAssert.h; sourceTree = "<group>"; };
+		0A7B40CA1E556EBE0086CBF6 /* MCAsync.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAsync.h; sourceTree = "<group>"; };
+		0A7B40CB1E556EBE0086CBF6 /* MCAsyncIMAP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAsyncIMAP.h; sourceTree = "<group>"; };
+		0A7B40CC1E556EBE0086CBF6 /* MCAsyncNNTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAsyncNNTP.h; sourceTree = "<group>"; };
+		0A7B40CD1E556EBE0086CBF6 /* MCAsyncPOP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAsyncPOP.h; sourceTree = "<group>"; };
+		0A7B40CE1E556EBE0086CBF6 /* MCAsyncSMTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAsyncSMTP.h; sourceTree = "<group>"; };
+		0A7B40CF1E556EBE0086CBF6 /* MCAttachment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAttachment.h; sourceTree = "<group>"; };
+		0A7B40D01E556EBE0086CBF6 /* MCAutoreleasePool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAutoreleasePool.h; sourceTree = "<group>"; };
+		0A7B40D11E556EBE0086CBF6 /* MCBaseTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCBaseTypes.h; sourceTree = "<group>"; };
+		0A7B40D21E556EBE0086CBF6 /* MCConnectionLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCConnectionLogger.h; sourceTree = "<group>"; };
+		0A7B40D31E556EBE0086CBF6 /* MCCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCCore.h; sourceTree = "<group>"; };
+		0A7B40D41E556EBE0086CBF6 /* MCData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCData.h; sourceTree = "<group>"; };
+		0A7B40D51E556EBE0086CBF6 /* MCDateFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCDateFormatter.h; sourceTree = "<group>"; };
+		0A7B40D61E556EBE0086CBF6 /* MCHash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCHash.h; sourceTree = "<group>"; };
+		0A7B40D71E556EBE0086CBF6 /* MCHashMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCHashMap.h; sourceTree = "<group>"; };
+		0A7B40D81E556EBE0086CBF6 /* MCHTMLCleaner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCHTMLCleaner.h; sourceTree = "<group>"; };
+		0A7B40D91E556EBE0086CBF6 /* MCHTMLRendererCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCHTMLRendererCallback.h; sourceTree = "<group>"; };
+		0A7B40DA1E556EBE0086CBF6 /* MCICUTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCICUTypes.h; sourceTree = "<group>"; };
+		0A7B40DB1E556EBE0086CBF6 /* MCIMAP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAP.h; sourceTree = "<group>"; };
+		0A7B40DC1E556EBE0086CBF6 /* MCIMAPAppendMessageOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPAppendMessageOperation.h; sourceTree = "<group>"; };
+		0A7B40DD1E556EBE0086CBF6 /* MCIMAPAsyncSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPAsyncSession.h; sourceTree = "<group>"; };
+		0A7B40DE1E556EBE0086CBF6 /* MCIMAPCapabilityOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPCapabilityOperation.h; sourceTree = "<group>"; };
+		0A7B40DF1E556EBE0086CBF6 /* MCIMAPConnectOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPConnectOperation.h; sourceTree = "<group>"; };
+		0A7B40E01E556EBE0086CBF6 /* MCIMAPCopyMessagesOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPCopyMessagesOperation.h; sourceTree = "<group>"; };
+		0A7B40E11E556EBE0086CBF6 /* MCIMAPCustomCommandOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPCustomCommandOperation.h; sourceTree = "<group>"; };
+		0A7B40E21E556EBE0086CBF6 /* MCIMAPFetchContentOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPFetchContentOperation.h; sourceTree = "<group>"; };
+		0A7B40E31E556EBE0086CBF6 /* MCIMAPFetchFoldersOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPFetchFoldersOperation.h; sourceTree = "<group>"; };
+		0A7B40E41E556EBE0086CBF6 /* MCIMAPFetchMessagesOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPFetchMessagesOperation.h; sourceTree = "<group>"; };
+		0A7B40E51E556EBE0086CBF6 /* MCIMAPFetchNamespaceOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPFetchNamespaceOperation.h; sourceTree = "<group>"; };
+		0A7B40E61E556EBE0086CBF6 /* MCIMAPFetchParsedContentOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPFetchParsedContentOperation.h; sourceTree = "<group>"; };
+		0A7B40E71E556EBE0086CBF6 /* MCIMAPFolder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPFolder.h; sourceTree = "<group>"; };
+		0A7B40E81E556EBE0086CBF6 /* MCIMAPFolderInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPFolderInfo.h; sourceTree = "<group>"; };
+		0A7B40E91E556EBE0086CBF6 /* MCIMAPFolderInfoOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPFolderInfoOperation.h; sourceTree = "<group>"; };
+		0A7B40EA1E556EBE0086CBF6 /* MCIMAPFolderStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPFolderStatus.h; sourceTree = "<group>"; };
+		0A7B40EB1E556EBE0086CBF6 /* MCIMAPFolderStatusOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPFolderStatusOperation.h; sourceTree = "<group>"; };
+		0A7B40EC1E556EBE0086CBF6 /* MCIMAPIdentity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPIdentity.h; sourceTree = "<group>"; };
+		0A7B40ED1E556EBE0086CBF6 /* MCIMAPIdentityOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPIdentityOperation.h; sourceTree = "<group>"; };
+		0A7B40EE1E556EBE0086CBF6 /* MCIMAPIdleOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPIdleOperation.h; sourceTree = "<group>"; };
+		0A7B40EF1E556EBE0086CBF6 /* MCIMAPMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPMessage.h; sourceTree = "<group>"; };
+		0A7B40F01E556EBE0086CBF6 /* MCIMAPMessagePart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPMessagePart.h; sourceTree = "<group>"; };
+		0A7B40F11E556EBE0086CBF6 /* MCIMAPMessageRenderingOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPMessageRenderingOperation.h; sourceTree = "<group>"; };
+		0A7B40F21E556EBE0086CBF6 /* MCIMAPMultipart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPMultipart.h; sourceTree = "<group>"; };
+		0A7B40F31E556EBE0086CBF6 /* MCIMAPNamespace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPNamespace.h; sourceTree = "<group>"; };
+		0A7B40F41E556EBE0086CBF6 /* MCIMAPNamespaceItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPNamespaceItem.h; sourceTree = "<group>"; };
+		0A7B40F51E556EBE0086CBF6 /* MCIMAPNoopOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPNoopOperation.h; sourceTree = "<group>"; };
+		0A7B40F61E556EBE0086CBF6 /* MCIMAPOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPOperation.h; sourceTree = "<group>"; };
+		0A7B40F71E556EBE0086CBF6 /* MCIMAPOperationCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPOperationCallback.h; sourceTree = "<group>"; };
+		0A7B40F81E556EBE0086CBF6 /* MCIMAPPart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPPart.h; sourceTree = "<group>"; };
+		0A7B40F91E556EBE0086CBF6 /* MCIMAPProgressCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPProgressCallback.h; sourceTree = "<group>"; };
+		0A7B40FA1E556EBE0086CBF6 /* MCIMAPQuotaOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPQuotaOperation.h; sourceTree = "<group>"; };
+		0A7B40FB1E556EBE0086CBF6 /* MCIMAPSearchExpression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPSearchExpression.h; sourceTree = "<group>"; };
+		0A7B40FC1E556EBE0086CBF6 /* MCIMAPSearchOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPSearchOperation.h; sourceTree = "<group>"; };
+		0A7B40FD1E556EBE0086CBF6 /* MCIMAPSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPSession.h; sourceTree = "<group>"; };
+		0A7B40FE1E556EBE0086CBF6 /* MCIMAPSyncResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIMAPSyncResult.h; sourceTree = "<group>"; };
+		0A7B40FF1E556EBE0086CBF6 /* MCIndexSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIndexSet.h; sourceTree = "<group>"; };
+		0A7B41001E556EBE0086CBF6 /* MCIterator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCIterator.h; sourceTree = "<group>"; };
+		0A7B41011E556EBE0086CBF6 /* MCJSON.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCJSON.h; sourceTree = "<group>"; };
+		0A7B41021E556EBE0086CBF6 /* MCLibetpanTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCLibetpanTypes.h; sourceTree = "<group>"; };
+		0A7B41031E556EBE0086CBF6 /* MCLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCLog.h; sourceTree = "<group>"; };
+		0A7B41041E556EBE0086CBF6 /* MCMailProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCMailProvider.h; sourceTree = "<group>"; };
+		0A7B41051E556EBE0086CBF6 /* MCMailProvidersManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCMailProvidersManager.h; sourceTree = "<group>"; };
+		0A7B41061E556EBE0086CBF6 /* MCMainThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCMainThread.h; sourceTree = "<group>"; };
+		0A7B41071E556EBE0086CBF6 /* MCMD5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCMD5.h; sourceTree = "<group>"; };
+		0A7B41081E556EBE0086CBF6 /* MCMessageBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCMessageBuilder.h; sourceTree = "<group>"; };
+		0A7B41091E556EBE0086CBF6 /* MCMessageConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCMessageConstants.h; sourceTree = "<group>"; };
+		0A7B410A1E556EBE0086CBF6 /* MCMessageHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCMessageHeader.h; sourceTree = "<group>"; };
+		0A7B410B1E556EBE0086CBF6 /* MCMessageParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCMessageParser.h; sourceTree = "<group>"; };
+		0A7B410C1E556EBE0086CBF6 /* MCMessagePart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCMessagePart.h; sourceTree = "<group>"; };
+		0A7B410D1E556EBE0086CBF6 /* MCMultipart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCMultipart.h; sourceTree = "<group>"; };
+		0A7B410E1E556EBE0086CBF6 /* MCMXRecordResolverOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCMXRecordResolverOperation.h; sourceTree = "<group>"; };
+		0A7B410F1E556EBE0086CBF6 /* MCNetService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCNetService.h; sourceTree = "<group>"; };
+		0A7B41101E556EBE0086CBF6 /* MCNNTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCNNTP.h; sourceTree = "<group>"; };
+		0A7B41111E556EBE0086CBF6 /* MCNNTPAsyncSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCNNTPAsyncSession.h; sourceTree = "<group>"; };
+		0A7B41121E556EBE0086CBF6 /* MCNNTPCheckAccountOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCNNTPCheckAccountOperation.h; sourceTree = "<group>"; };
+		0A7B41131E556EBE0086CBF6 /* MCNNTPFetchAllArticlesOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCNNTPFetchAllArticlesOperation.h; sourceTree = "<group>"; };
+		0A7B41141E556EBE0086CBF6 /* MCNNTPFetchArticleOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCNNTPFetchArticleOperation.h; sourceTree = "<group>"; };
+		0A7B41151E556EBE0086CBF6 /* MCNNTPFetchHeaderOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCNNTPFetchHeaderOperation.h; sourceTree = "<group>"; };
+		0A7B41161E556EBE0086CBF6 /* MCNNTPFetchOverviewOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCNNTPFetchOverviewOperation.h; sourceTree = "<group>"; };
+		0A7B41171E556EBE0086CBF6 /* MCNNTPFetchServerTimeOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCNNTPFetchServerTimeOperation.h; sourceTree = "<group>"; };
+		0A7B41181E556EBE0086CBF6 /* MCNNTPGroupInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCNNTPGroupInfo.h; sourceTree = "<group>"; };
+		0A7B41191E556EBE0086CBF6 /* MCNNTPListNewsgroupsOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCNNTPListNewsgroupsOperation.h; sourceTree = "<group>"; };
+		0A7B411A1E556EBE0086CBF6 /* MCNNTPOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCNNTPOperation.h; sourceTree = "<group>"; };
+		0A7B411B1E556EBE0086CBF6 /* MCNNTPOperationCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCNNTPOperationCallback.h; sourceTree = "<group>"; };
+		0A7B411C1E556EBE0086CBF6 /* MCNNTPProgressCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCNNTPProgressCallback.h; sourceTree = "<group>"; };
+		0A7B411D1E556EBE0086CBF6 /* MCNNTPSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCNNTPSession.h; sourceTree = "<group>"; };
+		0A7B411E1E556EBE0086CBF6 /* MCNull.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCNull.h; sourceTree = "<group>"; };
+		0A7B411F1E556EBE0086CBF6 /* MCOAbstract.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOAbstract.h; sourceTree = "<group>"; };
+		0A7B41201E556EBE0086CBF6 /* MCOAbstractMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOAbstractMessage.h; sourceTree = "<group>"; };
+		0A7B41211E556EBE0086CBF6 /* MCOAbstractMessagePart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOAbstractMessagePart.h; sourceTree = "<group>"; };
+		0A7B41221E556EBE0086CBF6 /* MCOAbstractMultipart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOAbstractMultipart.h; sourceTree = "<group>"; };
+		0A7B41231E556EBE0086CBF6 /* MCOAbstractPart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOAbstractPart.h; sourceTree = "<group>"; };
+		0A7B41241E556EBE0086CBF6 /* MCOAccountValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOAccountValidator.h; sourceTree = "<group>"; };
+		0A7B41251E556EBE0086CBF6 /* MCOAddress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOAddress.h; sourceTree = "<group>"; };
+		0A7B41261E556EBE0086CBF6 /* MCOAttachment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOAttachment.h; sourceTree = "<group>"; };
+		0A7B41271E556EBE0086CBF6 /* MCObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCObjC.h; sourceTree = "<group>"; };
+		0A7B41281E556EBE0086CBF6 /* MCObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCObject.h; sourceTree = "<group>"; };
+		0A7B41291E556EBE0086CBF6 /* MCOConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOConstants.h; sourceTree = "<group>"; };
+		0A7B412A1E556EBE0086CBF6 /* MCOHTMLRendererDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOHTMLRendererDelegate.h; sourceTree = "<group>"; };
+		0A7B412B1E556EBE0086CBF6 /* MCOHTMLRendererIMAPDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOHTMLRendererIMAPDelegate.h; sourceTree = "<group>"; };
+		0A7B412C1E556EBE0086CBF6 /* MCOIMAP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAP.h; sourceTree = "<group>"; };
+		0A7B412D1E556EBE0086CBF6 /* MCOIMAPAppendMessageOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPAppendMessageOperation.h; sourceTree = "<group>"; };
+		0A7B412E1E556EBE0086CBF6 /* MCOIMAPBaseOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPBaseOperation.h; sourceTree = "<group>"; };
+		0A7B412F1E556EBE0086CBF6 /* MCOIMAPCapabilityOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPCapabilityOperation.h; sourceTree = "<group>"; };
+		0A7B41301E556EBE0086CBF6 /* MCOIMAPCopyMessagesOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPCopyMessagesOperation.h; sourceTree = "<group>"; };
+		0A7B41311E556EBE0086CBF6 /* MCOIMAPCustomCommandOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPCustomCommandOperation.h; sourceTree = "<group>"; };
+		0A7B41321E556EBE0086CBF6 /* MCOIMAPFetchContentOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPFetchContentOperation.h; sourceTree = "<group>"; };
+		0A7B41331E556EBE0086CBF6 /* MCOIMAPFetchFoldersOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPFetchFoldersOperation.h; sourceTree = "<group>"; };
+		0A7B41341E556EBE0086CBF6 /* MCOIMAPFetchMessagesOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPFetchMessagesOperation.h; sourceTree = "<group>"; };
+		0A7B41351E556EBE0086CBF6 /* MCOIMAPFetchNamespaceOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPFetchNamespaceOperation.h; sourceTree = "<group>"; };
+		0A7B41361E556EBE0086CBF6 /* MCOIMAPFetchParsedContentOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPFetchParsedContentOperation.h; sourceTree = "<group>"; };
+		0A7B41371E556EBE0086CBF6 /* MCOIMAPFolder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPFolder.h; sourceTree = "<group>"; };
+		0A7B41381E556EBE0086CBF6 /* MCOIMAPFolderInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPFolderInfo.h; sourceTree = "<group>"; };
+		0A7B41391E556EBE0086CBF6 /* MCOIMAPFolderInfoOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPFolderInfoOperation.h; sourceTree = "<group>"; };
+		0A7B413A1E556EBE0086CBF6 /* MCOIMAPFolderStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPFolderStatus.h; sourceTree = "<group>"; };
+		0A7B413B1E556EBE0086CBF6 /* MCOIMAPFolderStatusOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPFolderStatusOperation.h; sourceTree = "<group>"; };
+		0A7B413C1E556EBE0086CBF6 /* MCOIMAPIdentity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPIdentity.h; sourceTree = "<group>"; };
+		0A7B413D1E556EBE0086CBF6 /* MCOIMAPIdentityOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPIdentityOperation.h; sourceTree = "<group>"; };
+		0A7B413E1E556EBE0086CBF6 /* MCOIMAPIdleOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPIdleOperation.h; sourceTree = "<group>"; };
+		0A7B413F1E556EBE0086CBF6 /* MCOIMAPMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPMessage.h; sourceTree = "<group>"; };
+		0A7B41401E556EBE0086CBF6 /* MCOIMAPMessagePart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPMessagePart.h; sourceTree = "<group>"; };
+		0A7B41411E556EBE0086CBF6 /* MCOIMAPMessageRenderingOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPMessageRenderingOperation.h; sourceTree = "<group>"; };
+		0A7B41421E556EBE0086CBF6 /* MCOIMAPMultipart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPMultipart.h; sourceTree = "<group>"; };
+		0A7B41431E556EBE0086CBF6 /* MCOIMAPNamespace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPNamespace.h; sourceTree = "<group>"; };
+		0A7B41441E556EBE0086CBF6 /* MCOIMAPNamespaceItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPNamespaceItem.h; sourceTree = "<group>"; };
+		0A7B41451E556EBE0086CBF6 /* MCOIMAPOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPOperation.h; sourceTree = "<group>"; };
+		0A7B41461E556EBE0086CBF6 /* MCOIMAPPart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPPart.h; sourceTree = "<group>"; };
+		0A7B41471E556EBE0086CBF6 /* MCOIMAPQuotaOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPQuotaOperation.h; sourceTree = "<group>"; };
+		0A7B41481E556EBE0086CBF6 /* MCOIMAPSearchExpression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPSearchExpression.h; sourceTree = "<group>"; };
+		0A7B41491E556EBE0086CBF6 /* MCOIMAPSearchOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPSearchOperation.h; sourceTree = "<group>"; };
+		0A7B414A1E556EBE0086CBF6 /* MCOIMAPSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIMAPSession.h; sourceTree = "<group>"; };
+		0A7B414B1E556EBE0086CBF6 /* MCOIndexSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOIndexSet.h; sourceTree = "<group>"; };
+		0A7B414C1E556EBE0086CBF6 /* MCOMailProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOMailProvider.h; sourceTree = "<group>"; };
+		0A7B414D1E556EBE0086CBF6 /* MCOMailProvidersManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOMailProvidersManager.h; sourceTree = "<group>"; };
+		0A7B414E1E556EBE0086CBF6 /* MCOMessageBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOMessageBuilder.h; sourceTree = "<group>"; };
+		0A7B414F1E556EBE0086CBF6 /* MCOMessageHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOMessageHeader.h; sourceTree = "<group>"; };
+		0A7B41501E556EBE0086CBF6 /* MCOMessageParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOMessageParser.h; sourceTree = "<group>"; };
+		0A7B41511E556EBE0086CBF6 /* MCOMessagePart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOMessagePart.h; sourceTree = "<group>"; };
+		0A7B41521E556EBE0086CBF6 /* MCOMultipart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOMultipart.h; sourceTree = "<group>"; };
+		0A7B41531E556EBE0086CBF6 /* MCONetService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCONetService.h; sourceTree = "<group>"; };
+		0A7B41541E556EBE0086CBF6 /* MCONNTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCONNTP.h; sourceTree = "<group>"; };
+		0A7B41551E556EBE0086CBF6 /* MCONNTPDisconnectOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCONNTPDisconnectOperation.h; sourceTree = "<group>"; };
+		0A7B41561E556EBE0086CBF6 /* MCONNTPFetchAllArticlesOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCONNTPFetchAllArticlesOperation.h; sourceTree = "<group>"; };
+		0A7B41571E556EBE0086CBF6 /* MCONNTPFetchArticleOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCONNTPFetchArticleOperation.h; sourceTree = "<group>"; };
+		0A7B41581E556EBE0086CBF6 /* MCONNTPFetchHeaderOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCONNTPFetchHeaderOperation.h; sourceTree = "<group>"; };
+		0A7B41591E556EBE0086CBF6 /* MCONNTPFetchOverviewOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCONNTPFetchOverviewOperation.h; sourceTree = "<group>"; };
+		0A7B415A1E556EBE0086CBF6 /* MCONNTPFetchServerTimeOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCONNTPFetchServerTimeOperation.h; sourceTree = "<group>"; };
+		0A7B415B1E556EBE0086CBF6 /* MCONNTPGroupInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCONNTPGroupInfo.h; sourceTree = "<group>"; };
+		0A7B415C1E556EBE0086CBF6 /* MCONNTPListNewsgroupsOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCONNTPListNewsgroupsOperation.h; sourceTree = "<group>"; };
+		0A7B415D1E556EBE0086CBF6 /* MCONNTPOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCONNTPOperation.h; sourceTree = "<group>"; };
+		0A7B415E1E556EBE0086CBF6 /* MCONNTPSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCONNTPSession.h; sourceTree = "<group>"; };
+		0A7B415F1E556EBE0086CBF6 /* MCOObjectWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOObjectWrapper.h; sourceTree = "<group>"; };
+		0A7B41601E556EBE0086CBF6 /* MCOOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOOperation.h; sourceTree = "<group>"; };
+		0A7B41611E556EBE0086CBF6 /* MCOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOperation.h; sourceTree = "<group>"; };
+		0A7B41621E556EBE0086CBF6 /* MCOperationCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOperationCallback.h; sourceTree = "<group>"; };
+		0A7B41631E556EBE0086CBF6 /* MCOperationQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOperationQueue.h; sourceTree = "<group>"; };
+		0A7B41641E556EBE0086CBF6 /* MCOPOP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOPOP.h; sourceTree = "<group>"; };
+		0A7B41651E556EBE0086CBF6 /* MCOPOPFetchHeaderOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOPOPFetchHeaderOperation.h; sourceTree = "<group>"; };
+		0A7B41661E556EBE0086CBF6 /* MCOPOPFetchMessageOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOPOPFetchMessageOperation.h; sourceTree = "<group>"; };
+		0A7B41671E556EBE0086CBF6 /* MCOPOPFetchMessagesOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOPOPFetchMessagesOperation.h; sourceTree = "<group>"; };
+		0A7B41681E556EBE0086CBF6 /* MCOPOPMessageInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOPOPMessageInfo.h; sourceTree = "<group>"; };
+		0A7B41691E556EBE0086CBF6 /* MCOPOPNoopOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOPOPNoopOperation.h; sourceTree = "<group>"; };
+		0A7B416A1E556EBE0086CBF6 /* MCOPOPOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOPOPOperation.h; sourceTree = "<group>"; };
+		0A7B416B1E556EBE0086CBF6 /* MCOPOPSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOPOPSession.h; sourceTree = "<group>"; };
+		0A7B416C1E556EBE0086CBF6 /* MCOProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOProvider.h; sourceTree = "<group>"; };
+		0A7B416D1E556EBE0086CBF6 /* MCORange.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCORange.h; sourceTree = "<group>"; };
+		0A7B416E1E556EBE0086CBF6 /* MCORFC822.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCORFC822.h; sourceTree = "<group>"; };
+		0A7B416F1E556EBE0086CBF6 /* MCOSMTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOSMTP.h; sourceTree = "<group>"; };
+		0A7B41701E556EBE0086CBF6 /* MCOSMTPLoginOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOSMTPLoginOperation.h; sourceTree = "<group>"; };
+		0A7B41711E556EBE0086CBF6 /* MCOSMTPOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOSMTPOperation.h; sourceTree = "<group>"; };
+		0A7B41721E556EBE0086CBF6 /* MCOSMTPSendOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOSMTPSendOperation.h; sourceTree = "<group>"; };
+		0A7B41731E556EBE0086CBF6 /* MCOSMTPSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOSMTPSession.h; sourceTree = "<group>"; };
+		0A7B41741E556EBE0086CBF6 /* MCOUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCOUtils.h; sourceTree = "<group>"; };
+		0A7B41751E556EBE0086CBF6 /* MCPOP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCPOP.h; sourceTree = "<group>"; };
+		0A7B41761E556EBE0086CBF6 /* MCPOPAsyncSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCPOPAsyncSession.h; sourceTree = "<group>"; };
+		0A7B41771E556EBE0086CBF6 /* MCPOPFetchHeaderOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCPOPFetchHeaderOperation.h; sourceTree = "<group>"; };
+		0A7B41781E556EBE0086CBF6 /* MCPOPFetchMessageOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCPOPFetchMessageOperation.h; sourceTree = "<group>"; };
+		0A7B41791E556EBE0086CBF6 /* MCPOPFetchMessagesOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCPOPFetchMessagesOperation.h; sourceTree = "<group>"; };
+		0A7B417A1E556EBE0086CBF6 /* MCPOPMessageInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCPOPMessageInfo.h; sourceTree = "<group>"; };
+		0A7B417B1E556EBE0086CBF6 /* MCPOPNoopOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCPOPNoopOperation.h; sourceTree = "<group>"; };
+		0A7B417C1E556EBE0086CBF6 /* MCPOPOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCPOPOperation.h; sourceTree = "<group>"; };
+		0A7B417D1E556EBE0086CBF6 /* MCPOPOperationCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCPOPOperationCallback.h; sourceTree = "<group>"; };
+		0A7B417E1E556EBE0086CBF6 /* MCPOPProgressCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCPOPProgressCallback.h; sourceTree = "<group>"; };
+		0A7B417F1E556EBE0086CBF6 /* MCPOPSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCPOPSession.h; sourceTree = "<group>"; };
+		0A7B41801E556EBE0086CBF6 /* MCProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCProvider.h; sourceTree = "<group>"; };
+		0A7B41811E556EBE0086CBF6 /* MCRange.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCRange.h; sourceTree = "<group>"; };
+		0A7B41821E556EBE0086CBF6 /* MCRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCRenderer.h; sourceTree = "<group>"; };
+		0A7B41831E556EBE0086CBF6 /* MCRFC822.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCRFC822.h; sourceTree = "<group>"; };
+		0A7B41841E556EBE0086CBF6 /* MCSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCSet.h; sourceTree = "<group>"; };
+		0A7B41851E556EBE0086CBF6 /* MCSizeFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCSizeFormatter.h; sourceTree = "<group>"; };
+		0A7B41861E556EBE0086CBF6 /* MCSMTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCSMTP.h; sourceTree = "<group>"; };
+		0A7B41871E556EBE0086CBF6 /* MCSMTPAsyncSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCSMTPAsyncSession.h; sourceTree = "<group>"; };
+		0A7B41881E556EBE0086CBF6 /* MCSMTPNoopOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCSMTPNoopOperation.h; sourceTree = "<group>"; };
+		0A7B41891E556EBE0086CBF6 /* MCSMTPOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCSMTPOperation.h; sourceTree = "<group>"; };
+		0A7B418A1E556EBE0086CBF6 /* MCSMTPOperationCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCSMTPOperationCallback.h; sourceTree = "<group>"; };
+		0A7B418B1E556EBE0086CBF6 /* MCSMTPProgressCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCSMTPProgressCallback.h; sourceTree = "<group>"; };
+		0A7B418C1E556EBE0086CBF6 /* MCSMTPSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCSMTPSession.h; sourceTree = "<group>"; };
+		0A7B418D1E556EBE0086CBF6 /* MCString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCString.h; sourceTree = "<group>"; };
+		0A7B418E1E556EBE0086CBF6 /* MCUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCUtils.h; sourceTree = "<group>"; };
+		0A7B418F1E556EBE0086CBF6 /* MCValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCValue.h; sourceTree = "<group>"; };
+		0A7B41901E556EBE0086CBF6 /* NSArray+MCO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+MCO.h"; sourceTree = "<group>"; };
+		0A7B41911E556EBE0086CBF6 /* NSData+MCO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+MCO.h"; sourceTree = "<group>"; };
+		0A7B41921E556EBE0086CBF6 /* NSDictionary+MCO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+MCO.h"; sourceTree = "<group>"; };
+		0A7B41931E556EBE0086CBF6 /* NSError+MCO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+MCO.h"; sourceTree = "<group>"; };
+		0A7B41941E556EBE0086CBF6 /* NSIndexSet+MCO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+MCO.h"; sourceTree = "<group>"; };
+		0A7B41951E556EBE0086CBF6 /* NSObject+MCO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+MCO.h"; sourceTree = "<group>"; };
+		0A7B41961E556EBE0086CBF6 /* NSString+MCO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+MCO.h"; sourceTree = "<group>"; };
+		0A7B41971E556EBE0086CBF6 /* NSValue+MCO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSValue+MCO.h"; sourceTree = "<group>"; };
+		0A7B41981E55749F0086CBF6 /* libMailCore-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libMailCore-ios.a"; sourceTree = "<group>"; };
+		0A81736C1E5590760020C00B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0A81736E1E5590830020C00B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		24DD6CF71134B3F500162E58 /* TiMailcoreModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TiMailcoreModule.h; path = Classes/TiMailcoreModule.h; sourceTree = "<group>"; };
+		24DD6CF81134B3F500162E58 /* TiMailcoreModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TiMailcoreModule.m; path = Classes/TiMailcoreModule.m; sourceTree = "<group>"; };
+		24DD6D1B1134B66800162E58 /* titanium.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = titanium.xcconfig; sourceTree = "<group>"; };
+		24DE9E0F11C5FE74003F90F6 /* TiMailcoreModuleAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TiMailcoreModuleAssets.h; path = Classes/TiMailcoreModuleAssets.h; sourceTree = "<group>"; };
+		24DE9E1011C5FE74003F90F6 /* TiMailcoreModuleAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TiMailcoreModuleAssets.m; path = Classes/TiMailcoreModuleAssets.m; sourceTree = "<group>"; };
+		AA747D9E0F9514B9006C5449 /* TiMailcore_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiMailcore_Prefix.pch; sourceTree = SOURCE_ROOT; };
+		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D2AAC07E0554694100DB518D /* libti.mailcore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libti.mailcore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D2AAC07C0554694100DB518D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A81736D1E5590760020C00B /* Security.framework in Frameworks */,
+				0A81736F1E5590830020C00B /* CFNetwork.framework in Frameworks */,
+				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
+				0A7B41991E55749F0086CBF6 /* libMailCore-ios.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2AAC07E0554694100DB518D /* libti.mailcore.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* TiMailcore */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77AEFE84172EC02AAC07 /* Classes */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
+				0867D69AFE84028FC02AAC07 /* Frameworks */,
+				034768DFFF38A50411DB9C8B /* Products */,
+			);
+			name = TiMailcore;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0A81736E1E5590830020C00B /* CFNetwork.framework */,
+				0A81736C1E5590760020C00B /* Security.framework */,
+				0A7B41981E55749F0086CBF6 /* libMailCore-ios.a */,
+				AACBBE490F95108600F1A2B1 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		08FB77AEFE84172EC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0A7B40BA1E556DF30086CBF6 /* TiMailcoreSessionProxy.h */,
+				0A7B40BB1E556DF30086CBF6 /* TiMailcoreSessionProxy.m */,
+				24DE9E0F11C5FE74003F90F6 /* TiMailcoreModuleAssets.h */,
+				24DE9E1011C5FE74003F90F6 /* TiMailcoreModuleAssets.m */,
+				24DD6CF71134B3F500162E58 /* TiMailcoreModule.h */,
+				24DD6CF81134B3F500162E58 /* TiMailcoreModule.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		0A7B40BE1E556EBE0086CBF6 /* MailCore */ = {
+			isa = PBXGroup;
+			children = (
+				0A7B40BF1E556EBE0086CBF6 /* MailCore.h */,
+				0A7B40C01E556EBE0086CBF6 /* MCAbstract.h */,
+				0A7B40C11E556EBE0086CBF6 /* MCAbstractMessage.h */,
+				0A7B40C21E556EBE0086CBF6 /* MCAbstractMessagePart.h */,
+				0A7B40C31E556EBE0086CBF6 /* MCAbstractMultipart.h */,
+				0A7B40C41E556EBE0086CBF6 /* MCAbstractPart.h */,
+				0A7B40C51E556EBE0086CBF6 /* MCAccountValidator.h */,
+				0A7B40C61E556EBE0086CBF6 /* MCAddress.h */,
+				0A7B40C71E556EBE0086CBF6 /* MCAddressDisplay.h */,
+				0A7B40C81E556EBE0086CBF6 /* MCArray.h */,
+				0A7B40C91E556EBE0086CBF6 /* MCAssert.h */,
+				0A7B40CA1E556EBE0086CBF6 /* MCAsync.h */,
+				0A7B40CB1E556EBE0086CBF6 /* MCAsyncIMAP.h */,
+				0A7B40CC1E556EBE0086CBF6 /* MCAsyncNNTP.h */,
+				0A7B40CD1E556EBE0086CBF6 /* MCAsyncPOP.h */,
+				0A7B40CE1E556EBE0086CBF6 /* MCAsyncSMTP.h */,
+				0A7B40CF1E556EBE0086CBF6 /* MCAttachment.h */,
+				0A7B40D01E556EBE0086CBF6 /* MCAutoreleasePool.h */,
+				0A7B40D11E556EBE0086CBF6 /* MCBaseTypes.h */,
+				0A7B40D21E556EBE0086CBF6 /* MCConnectionLogger.h */,
+				0A7B40D31E556EBE0086CBF6 /* MCCore.h */,
+				0A7B40D41E556EBE0086CBF6 /* MCData.h */,
+				0A7B40D51E556EBE0086CBF6 /* MCDateFormatter.h */,
+				0A7B40D61E556EBE0086CBF6 /* MCHash.h */,
+				0A7B40D71E556EBE0086CBF6 /* MCHashMap.h */,
+				0A7B40D81E556EBE0086CBF6 /* MCHTMLCleaner.h */,
+				0A7B40D91E556EBE0086CBF6 /* MCHTMLRendererCallback.h */,
+				0A7B40DA1E556EBE0086CBF6 /* MCICUTypes.h */,
+				0A7B40DB1E556EBE0086CBF6 /* MCIMAP.h */,
+				0A7B40DC1E556EBE0086CBF6 /* MCIMAPAppendMessageOperation.h */,
+				0A7B40DD1E556EBE0086CBF6 /* MCIMAPAsyncSession.h */,
+				0A7B40DE1E556EBE0086CBF6 /* MCIMAPCapabilityOperation.h */,
+				0A7B40DF1E556EBE0086CBF6 /* MCIMAPConnectOperation.h */,
+				0A7B40E01E556EBE0086CBF6 /* MCIMAPCopyMessagesOperation.h */,
+				0A7B40E11E556EBE0086CBF6 /* MCIMAPCustomCommandOperation.h */,
+				0A7B40E21E556EBE0086CBF6 /* MCIMAPFetchContentOperation.h */,
+				0A7B40E31E556EBE0086CBF6 /* MCIMAPFetchFoldersOperation.h */,
+				0A7B40E41E556EBE0086CBF6 /* MCIMAPFetchMessagesOperation.h */,
+				0A7B40E51E556EBE0086CBF6 /* MCIMAPFetchNamespaceOperation.h */,
+				0A7B40E61E556EBE0086CBF6 /* MCIMAPFetchParsedContentOperation.h */,
+				0A7B40E71E556EBE0086CBF6 /* MCIMAPFolder.h */,
+				0A7B40E81E556EBE0086CBF6 /* MCIMAPFolderInfo.h */,
+				0A7B40E91E556EBE0086CBF6 /* MCIMAPFolderInfoOperation.h */,
+				0A7B40EA1E556EBE0086CBF6 /* MCIMAPFolderStatus.h */,
+				0A7B40EB1E556EBE0086CBF6 /* MCIMAPFolderStatusOperation.h */,
+				0A7B40EC1E556EBE0086CBF6 /* MCIMAPIdentity.h */,
+				0A7B40ED1E556EBE0086CBF6 /* MCIMAPIdentityOperation.h */,
+				0A7B40EE1E556EBE0086CBF6 /* MCIMAPIdleOperation.h */,
+				0A7B40EF1E556EBE0086CBF6 /* MCIMAPMessage.h */,
+				0A7B40F01E556EBE0086CBF6 /* MCIMAPMessagePart.h */,
+				0A7B40F11E556EBE0086CBF6 /* MCIMAPMessageRenderingOperation.h */,
+				0A7B40F21E556EBE0086CBF6 /* MCIMAPMultipart.h */,
+				0A7B40F31E556EBE0086CBF6 /* MCIMAPNamespace.h */,
+				0A7B40F41E556EBE0086CBF6 /* MCIMAPNamespaceItem.h */,
+				0A7B40F51E556EBE0086CBF6 /* MCIMAPNoopOperation.h */,
+				0A7B40F61E556EBE0086CBF6 /* MCIMAPOperation.h */,
+				0A7B40F71E556EBE0086CBF6 /* MCIMAPOperationCallback.h */,
+				0A7B40F81E556EBE0086CBF6 /* MCIMAPPart.h */,
+				0A7B40F91E556EBE0086CBF6 /* MCIMAPProgressCallback.h */,
+				0A7B40FA1E556EBE0086CBF6 /* MCIMAPQuotaOperation.h */,
+				0A7B40FB1E556EBE0086CBF6 /* MCIMAPSearchExpression.h */,
+				0A7B40FC1E556EBE0086CBF6 /* MCIMAPSearchOperation.h */,
+				0A7B40FD1E556EBE0086CBF6 /* MCIMAPSession.h */,
+				0A7B40FE1E556EBE0086CBF6 /* MCIMAPSyncResult.h */,
+				0A7B40FF1E556EBE0086CBF6 /* MCIndexSet.h */,
+				0A7B41001E556EBE0086CBF6 /* MCIterator.h */,
+				0A7B41011E556EBE0086CBF6 /* MCJSON.h */,
+				0A7B41021E556EBE0086CBF6 /* MCLibetpanTypes.h */,
+				0A7B41031E556EBE0086CBF6 /* MCLog.h */,
+				0A7B41041E556EBE0086CBF6 /* MCMailProvider.h */,
+				0A7B41051E556EBE0086CBF6 /* MCMailProvidersManager.h */,
+				0A7B41061E556EBE0086CBF6 /* MCMainThread.h */,
+				0A7B41071E556EBE0086CBF6 /* MCMD5.h */,
+				0A7B41081E556EBE0086CBF6 /* MCMessageBuilder.h */,
+				0A7B41091E556EBE0086CBF6 /* MCMessageConstants.h */,
+				0A7B410A1E556EBE0086CBF6 /* MCMessageHeader.h */,
+				0A7B410B1E556EBE0086CBF6 /* MCMessageParser.h */,
+				0A7B410C1E556EBE0086CBF6 /* MCMessagePart.h */,
+				0A7B410D1E556EBE0086CBF6 /* MCMultipart.h */,
+				0A7B410E1E556EBE0086CBF6 /* MCMXRecordResolverOperation.h */,
+				0A7B410F1E556EBE0086CBF6 /* MCNetService.h */,
+				0A7B41101E556EBE0086CBF6 /* MCNNTP.h */,
+				0A7B41111E556EBE0086CBF6 /* MCNNTPAsyncSession.h */,
+				0A7B41121E556EBE0086CBF6 /* MCNNTPCheckAccountOperation.h */,
+				0A7B41131E556EBE0086CBF6 /* MCNNTPFetchAllArticlesOperation.h */,
+				0A7B41141E556EBE0086CBF6 /* MCNNTPFetchArticleOperation.h */,
+				0A7B41151E556EBE0086CBF6 /* MCNNTPFetchHeaderOperation.h */,
+				0A7B41161E556EBE0086CBF6 /* MCNNTPFetchOverviewOperation.h */,
+				0A7B41171E556EBE0086CBF6 /* MCNNTPFetchServerTimeOperation.h */,
+				0A7B41181E556EBE0086CBF6 /* MCNNTPGroupInfo.h */,
+				0A7B41191E556EBE0086CBF6 /* MCNNTPListNewsgroupsOperation.h */,
+				0A7B411A1E556EBE0086CBF6 /* MCNNTPOperation.h */,
+				0A7B411B1E556EBE0086CBF6 /* MCNNTPOperationCallback.h */,
+				0A7B411C1E556EBE0086CBF6 /* MCNNTPProgressCallback.h */,
+				0A7B411D1E556EBE0086CBF6 /* MCNNTPSession.h */,
+				0A7B411E1E556EBE0086CBF6 /* MCNull.h */,
+				0A7B411F1E556EBE0086CBF6 /* MCOAbstract.h */,
+				0A7B41201E556EBE0086CBF6 /* MCOAbstractMessage.h */,
+				0A7B41211E556EBE0086CBF6 /* MCOAbstractMessagePart.h */,
+				0A7B41221E556EBE0086CBF6 /* MCOAbstractMultipart.h */,
+				0A7B41231E556EBE0086CBF6 /* MCOAbstractPart.h */,
+				0A7B41241E556EBE0086CBF6 /* MCOAccountValidator.h */,
+				0A7B41251E556EBE0086CBF6 /* MCOAddress.h */,
+				0A7B41261E556EBE0086CBF6 /* MCOAttachment.h */,
+				0A7B41271E556EBE0086CBF6 /* MCObjC.h */,
+				0A7B41281E556EBE0086CBF6 /* MCObject.h */,
+				0A7B41291E556EBE0086CBF6 /* MCOConstants.h */,
+				0A7B412A1E556EBE0086CBF6 /* MCOHTMLRendererDelegate.h */,
+				0A7B412B1E556EBE0086CBF6 /* MCOHTMLRendererIMAPDelegate.h */,
+				0A7B412C1E556EBE0086CBF6 /* MCOIMAP.h */,
+				0A7B412D1E556EBE0086CBF6 /* MCOIMAPAppendMessageOperation.h */,
+				0A7B412E1E556EBE0086CBF6 /* MCOIMAPBaseOperation.h */,
+				0A7B412F1E556EBE0086CBF6 /* MCOIMAPCapabilityOperation.h */,
+				0A7B41301E556EBE0086CBF6 /* MCOIMAPCopyMessagesOperation.h */,
+				0A7B41311E556EBE0086CBF6 /* MCOIMAPCustomCommandOperation.h */,
+				0A7B41321E556EBE0086CBF6 /* MCOIMAPFetchContentOperation.h */,
+				0A7B41331E556EBE0086CBF6 /* MCOIMAPFetchFoldersOperation.h */,
+				0A7B41341E556EBE0086CBF6 /* MCOIMAPFetchMessagesOperation.h */,
+				0A7B41351E556EBE0086CBF6 /* MCOIMAPFetchNamespaceOperation.h */,
+				0A7B41361E556EBE0086CBF6 /* MCOIMAPFetchParsedContentOperation.h */,
+				0A7B41371E556EBE0086CBF6 /* MCOIMAPFolder.h */,
+				0A7B41381E556EBE0086CBF6 /* MCOIMAPFolderInfo.h */,
+				0A7B41391E556EBE0086CBF6 /* MCOIMAPFolderInfoOperation.h */,
+				0A7B413A1E556EBE0086CBF6 /* MCOIMAPFolderStatus.h */,
+				0A7B413B1E556EBE0086CBF6 /* MCOIMAPFolderStatusOperation.h */,
+				0A7B413C1E556EBE0086CBF6 /* MCOIMAPIdentity.h */,
+				0A7B413D1E556EBE0086CBF6 /* MCOIMAPIdentityOperation.h */,
+				0A7B413E1E556EBE0086CBF6 /* MCOIMAPIdleOperation.h */,
+				0A7B413F1E556EBE0086CBF6 /* MCOIMAPMessage.h */,
+				0A7B41401E556EBE0086CBF6 /* MCOIMAPMessagePart.h */,
+				0A7B41411E556EBE0086CBF6 /* MCOIMAPMessageRenderingOperation.h */,
+				0A7B41421E556EBE0086CBF6 /* MCOIMAPMultipart.h */,
+				0A7B41431E556EBE0086CBF6 /* MCOIMAPNamespace.h */,
+				0A7B41441E556EBE0086CBF6 /* MCOIMAPNamespaceItem.h */,
+				0A7B41451E556EBE0086CBF6 /* MCOIMAPOperation.h */,
+				0A7B41461E556EBE0086CBF6 /* MCOIMAPPart.h */,
+				0A7B41471E556EBE0086CBF6 /* MCOIMAPQuotaOperation.h */,
+				0A7B41481E556EBE0086CBF6 /* MCOIMAPSearchExpression.h */,
+				0A7B41491E556EBE0086CBF6 /* MCOIMAPSearchOperation.h */,
+				0A7B414A1E556EBE0086CBF6 /* MCOIMAPSession.h */,
+				0A7B414B1E556EBE0086CBF6 /* MCOIndexSet.h */,
+				0A7B414C1E556EBE0086CBF6 /* MCOMailProvider.h */,
+				0A7B414D1E556EBE0086CBF6 /* MCOMailProvidersManager.h */,
+				0A7B414E1E556EBE0086CBF6 /* MCOMessageBuilder.h */,
+				0A7B414F1E556EBE0086CBF6 /* MCOMessageHeader.h */,
+				0A7B41501E556EBE0086CBF6 /* MCOMessageParser.h */,
+				0A7B41511E556EBE0086CBF6 /* MCOMessagePart.h */,
+				0A7B41521E556EBE0086CBF6 /* MCOMultipart.h */,
+				0A7B41531E556EBE0086CBF6 /* MCONetService.h */,
+				0A7B41541E556EBE0086CBF6 /* MCONNTP.h */,
+				0A7B41551E556EBE0086CBF6 /* MCONNTPDisconnectOperation.h */,
+				0A7B41561E556EBE0086CBF6 /* MCONNTPFetchAllArticlesOperation.h */,
+				0A7B41571E556EBE0086CBF6 /* MCONNTPFetchArticleOperation.h */,
+				0A7B41581E556EBE0086CBF6 /* MCONNTPFetchHeaderOperation.h */,
+				0A7B41591E556EBE0086CBF6 /* MCONNTPFetchOverviewOperation.h */,
+				0A7B415A1E556EBE0086CBF6 /* MCONNTPFetchServerTimeOperation.h */,
+				0A7B415B1E556EBE0086CBF6 /* MCONNTPGroupInfo.h */,
+				0A7B415C1E556EBE0086CBF6 /* MCONNTPListNewsgroupsOperation.h */,
+				0A7B415D1E556EBE0086CBF6 /* MCONNTPOperation.h */,
+				0A7B415E1E556EBE0086CBF6 /* MCONNTPSession.h */,
+				0A7B415F1E556EBE0086CBF6 /* MCOObjectWrapper.h */,
+				0A7B41601E556EBE0086CBF6 /* MCOOperation.h */,
+				0A7B41611E556EBE0086CBF6 /* MCOperation.h */,
+				0A7B41621E556EBE0086CBF6 /* MCOperationCallback.h */,
+				0A7B41631E556EBE0086CBF6 /* MCOperationQueue.h */,
+				0A7B41641E556EBE0086CBF6 /* MCOPOP.h */,
+				0A7B41651E556EBE0086CBF6 /* MCOPOPFetchHeaderOperation.h */,
+				0A7B41661E556EBE0086CBF6 /* MCOPOPFetchMessageOperation.h */,
+				0A7B41671E556EBE0086CBF6 /* MCOPOPFetchMessagesOperation.h */,
+				0A7B41681E556EBE0086CBF6 /* MCOPOPMessageInfo.h */,
+				0A7B41691E556EBE0086CBF6 /* MCOPOPNoopOperation.h */,
+				0A7B416A1E556EBE0086CBF6 /* MCOPOPOperation.h */,
+				0A7B416B1E556EBE0086CBF6 /* MCOPOPSession.h */,
+				0A7B416C1E556EBE0086CBF6 /* MCOProvider.h */,
+				0A7B416D1E556EBE0086CBF6 /* MCORange.h */,
+				0A7B416E1E556EBE0086CBF6 /* MCORFC822.h */,
+				0A7B416F1E556EBE0086CBF6 /* MCOSMTP.h */,
+				0A7B41701E556EBE0086CBF6 /* MCOSMTPLoginOperation.h */,
+				0A7B41711E556EBE0086CBF6 /* MCOSMTPOperation.h */,
+				0A7B41721E556EBE0086CBF6 /* MCOSMTPSendOperation.h */,
+				0A7B41731E556EBE0086CBF6 /* MCOSMTPSession.h */,
+				0A7B41741E556EBE0086CBF6 /* MCOUtils.h */,
+				0A7B41751E556EBE0086CBF6 /* MCPOP.h */,
+				0A7B41761E556EBE0086CBF6 /* MCPOPAsyncSession.h */,
+				0A7B41771E556EBE0086CBF6 /* MCPOPFetchHeaderOperation.h */,
+				0A7B41781E556EBE0086CBF6 /* MCPOPFetchMessageOperation.h */,
+				0A7B41791E556EBE0086CBF6 /* MCPOPFetchMessagesOperation.h */,
+				0A7B417A1E556EBE0086CBF6 /* MCPOPMessageInfo.h */,
+				0A7B417B1E556EBE0086CBF6 /* MCPOPNoopOperation.h */,
+				0A7B417C1E556EBE0086CBF6 /* MCPOPOperation.h */,
+				0A7B417D1E556EBE0086CBF6 /* MCPOPOperationCallback.h */,
+				0A7B417E1E556EBE0086CBF6 /* MCPOPProgressCallback.h */,
+				0A7B417F1E556EBE0086CBF6 /* MCPOPSession.h */,
+				0A7B41801E556EBE0086CBF6 /* MCProvider.h */,
+				0A7B41811E556EBE0086CBF6 /* MCRange.h */,
+				0A7B41821E556EBE0086CBF6 /* MCRenderer.h */,
+				0A7B41831E556EBE0086CBF6 /* MCRFC822.h */,
+				0A7B41841E556EBE0086CBF6 /* MCSet.h */,
+				0A7B41851E556EBE0086CBF6 /* MCSizeFormatter.h */,
+				0A7B41861E556EBE0086CBF6 /* MCSMTP.h */,
+				0A7B41871E556EBE0086CBF6 /* MCSMTPAsyncSession.h */,
+				0A7B41881E556EBE0086CBF6 /* MCSMTPNoopOperation.h */,
+				0A7B41891E556EBE0086CBF6 /* MCSMTPOperation.h */,
+				0A7B418A1E556EBE0086CBF6 /* MCSMTPOperationCallback.h */,
+				0A7B418B1E556EBE0086CBF6 /* MCSMTPProgressCallback.h */,
+				0A7B418C1E556EBE0086CBF6 /* MCSMTPSession.h */,
+				0A7B418D1E556EBE0086CBF6 /* MCString.h */,
+				0A7B418E1E556EBE0086CBF6 /* MCUtils.h */,
+				0A7B418F1E556EBE0086CBF6 /* MCValue.h */,
+				0A7B41901E556EBE0086CBF6 /* NSArray+MCO.h */,
+				0A7B41911E556EBE0086CBF6 /* NSData+MCO.h */,
+				0A7B41921E556EBE0086CBF6 /* NSDictionary+MCO.h */,
+				0A7B41931E556EBE0086CBF6 /* NSError+MCO.h */,
+				0A7B41941E556EBE0086CBF6 /* NSIndexSet+MCO.h */,
+				0A7B41951E556EBE0086CBF6 /* NSObject+MCO.h */,
+				0A7B41961E556EBE0086CBF6 /* NSString+MCO.h */,
+				0A7B41971E556EBE0086CBF6 /* NSValue+MCO.h */,
+			);
+			name = MailCore;
+			path = include/MailCore;
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				0A7B40BE1E556EBE0086CBF6 /* MailCore */,
+				AA747D9E0F9514B9006C5449 /* TiMailcore_Prefix.pch */,
+				24DD6D1B1134B66800162E58 /* titanium.xcconfig */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D2AAC07A0554694100DB518D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA747D9F0F9514B9006C5449 /* TiMailcore_Prefix.pch in Headers */,
+				0A7B40BC1E556DF30086CBF6 /* TiMailcoreSessionProxy.h in Headers */,
+				24DD6CF91134B3F500162E58 /* TiMailcoreModule.h in Headers */,
+				24DE9E1111C5FE74003F90F6 /* TiMailcoreModuleAssets.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D2AAC07D0554694100DB518D /* TiMailcore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "TiMailcore" */;
+			buildPhases = (
+				D2AAC07A0554694100DB518D /* Headers */,
+				D2AAC07B0554694100DB518D /* Sources */,
+				D2AAC07C0554694100DB518D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TiMailcore;
+			productName = TiMailcore;
+			productReference = D2AAC07E0554694100DB518D /* libti.mailcore.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+			};
+			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "TiMailcore" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* TiMailcore */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2AAC07D0554694100DB518D /* TiMailcore */,
+				24416B8111C4CA220047AFDD /* Build & Test */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		24416B8011C4CA220047AFDD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here\n\npython \"${TITANIUM_SDK}/titanium.py\" run --dir=\"${PROJECT_DIR}\"\nexit $?\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2AAC07B0554694100DB518D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24DD6CFA1134B3F500162E58 /* TiMailcoreModule.m in Sources */,
+				0A7B40BD1E556DF30086CBF6 /* TiMailcoreSessionProxy.m in Sources */,
+				24DE9E1211C5FE74003F90F6 /* TiMailcoreModuleAssets.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		24416B8511C4CA280047AFDD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D2AAC07D0554694100DB518D /* TiMailcore */;
+			targetProxy = 24416B8411C4CA280047AFDD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB921F08733DC00010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DSTROOT = /tmp/TiMailcore.dst;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TiMailcore_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "TI_VERSION=$(TI_VERSION)";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_STRICT_SELECTOR_MATCH = NO;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
+				GCC_WARN_UNUSED_VALUE = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(TITANIUM_BASE_SDK)",
+					"$(TITANIUM_BASE_SDK2)",
+					"$(TITANIUM_BASE_SDK3)",
+					"$(SRCROOT)/include",
+				);
+				INSTALL_PATH = /usr/local/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-DTI_POST_1_2",
+				);
+				OTHER_LDFLAGS = (
+					"-lctemplate-ios",
+					"-letpan-ios",
+					"-lxml2",
+					"-lsasl2",
+					"-liconv",
+					"-ltidy",
+					"-lz",
+					"-lc++",
+					"-lresolv",
+					"-stdlib=libc++",
+					"-ObjC",
+				);
+				PRODUCT_NAME = ti.mailcore;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		1DEB922008733DC00010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LIBRARY = "libc++";
+				DSTROOT = /tmp/TiMailcore.dst;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TiMailcore_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "TI_VERSION=$(TI_VERSION)";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_STRICT_SELECTOR_MATCH = NO;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
+				GCC_WARN_UNUSED_VALUE = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(TITANIUM_BASE_SDK)",
+					"$(TITANIUM_BASE_SDK2)",
+					"$(TITANIUM_BASE_SDK3)",
+					"$(SRCROOT)/include",
+				);
+				INSTALL_PATH = /usr/local/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
+				OTHER_CFLAGS = "-DTI_POST_1_2";
+				OTHER_LDFLAGS = (
+					"-lctemplate-ios",
+					"-letpan-ios",
+					"-lxml2",
+					"-lsasl2",
+					"-liconv",
+					"-ltidy",
+					"-lz",
+					"-lc++",
+					"-lresolv",
+					"-stdlib=libc++",
+					"-ObjC",
+				);
+				PRODUCT_NAME = ti.mailcore;
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+		1DEB922308733DC00010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libstdc++";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DSTROOT = /tmp/TiMailcore.dst;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TiMailcore_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "TI_VERSION=$(TI_VERSION)";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_STRICT_SELECTOR_MATCH = NO;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
+				GCC_WARN_UNUSED_VALUE = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				INSTALL_PATH = /usr/local/lib;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-DTI_POST_1_2",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ti.mailcore;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		1DEB922408733DC00010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LIBRARY = "libstdc++";
+				DSTROOT = /tmp/TiMailcore.dst;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TiMailcore_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "TI_VERSION=$(TI_VERSION)";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_STRICT_SELECTOR_MATCH = NO;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
+				GCC_WARN_UNUSED_VALUE = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				INSTALL_PATH = /usr/local/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DTI_POST_1_2";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ti.mailcore;
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+		24416B8211C4CA220047AFDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Build & test";
+			};
+			name = Debug;
+		};
+		24416B8311C4CA220047AFDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Build & test";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "TiMailcore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB921F08733DC00010E9CD /* Debug */,
+				1DEB922008733DC00010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "TiMailcore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB922308733DC00010E9CD /* Debug */,
+				1DEB922408733DC00010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		24416B8A11C4CA520047AFDD /* Build configuration list for PBXAggregateTarget "Build & Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24416B8211C4CA220047AFDD /* Debug */,
+				24416B8311C4CA220047AFDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}

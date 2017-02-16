@@ -1,0 +1,6 @@
+*.zip
+.DS_Store
+*/build/
+libMailCore-ios.a
+*/*/xcuserdata/
+*.xcuserstate

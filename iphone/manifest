@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.0.0
+apiversion: 2
+architectures: armv7 arm64 i386 x86_64
+description: TiMailcore
+author: joseph
+license: Specify your license
+copyright: Copyright (c) 2017 by Your Company
+
+# these should not be edited
+name: TiMailcore
+moduleid: ti.mailcore
+guid: 094010ee-228c-46ba-bac9-0667e650ed5b
+platform: iphone
+minsdk: 5.4.0.GA
