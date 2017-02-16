@@ -52,6 +52,7 @@
     </mobileweb>
     <modules>
         <module platform="iphone">ti.mailcore</module>
+        <module platform="android">ti.mailcore</module>
     </modules>
     <deployment-targets>
         <target device="android">true</target>

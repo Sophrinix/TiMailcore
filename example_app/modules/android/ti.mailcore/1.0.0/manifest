@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.0.0
+apiversion: 3
+architectures: armeabi-v7a x86
+description: TiMailcore
+author: joseph
+license: Specify your license
+copyright: Copyright (c) 2017 by Your Company
+
+# these should not be edited
+name: TiMailcore
+moduleid: ti.mailcore
+guid: 094010ee-228c-46ba-bac9-0667e650ed5b
+platform: android
+minsdk: 5.4.1.GA
