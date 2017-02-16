@@ -8,6 +8,7 @@
 
 	<!-- Make sure 'architectures' is in manifest file -->
 	<property file="${ti.module.root}/manifest" prefix="manifest"/>
+    
 	<fail message="Missing required manifest key 'architectures'.">
 		<condition>
 			<not>
