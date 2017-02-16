@@ -22,8 +22,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		0A7B40BC1E556DF30086CBF6 /* TiMailcoreSessionProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A7B40BA1E556DF30086CBF6 /* TiMailcoreSessionProxy.h */; };
-		0A7B40BD1E556DF30086CBF6 /* TiMailcoreSessionProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B40BB1E556DF30086CBF6 /* TiMailcoreSessionProxy.m */; };
+		0A7B40BC1E556DF30086CBF6 /* TiMailcoreSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A7B40BA1E556DF30086CBF6 /* TiMailcoreSession.h */; };
+		0A7B40BD1E556DF30086CBF6 /* TiMailcoreSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B40BB1E556DF30086CBF6 /* TiMailcoreSession.m */; };
 		0A7B41991E55749F0086CBF6 /* libMailCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A7B41981E55749F0086CBF6 /* libMailCore-ios.a */; };
 		0A81736D1E5590760020C00B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A81736C1E5590760020C00B /* Security.framework */; };
 		0A81736F1E5590830020C00B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A81736E1E5590830020C00B /* CFNetwork.framework */; };
@@ -46,8 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0A7B40BA1E556DF30086CBF6 /* TiMailcoreSessionProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TiMailcoreSessionProxy.h; path = Classes/TiMailcoreSessionProxy.h; sourceTree = "<group>"; };
-		0A7B40BB1E556DF30086CBF6 /* TiMailcoreSessionProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TiMailcoreSessionProxy.m; path = Classes/TiMailcoreSessionProxy.m; sourceTree = "<group>"; };
+		0A7B40BA1E556DF30086CBF6 /* TiMailcoreSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TiMailcoreSession.h; path = Classes/TiMailcoreSession.h; sourceTree = "<group>"; };
+		0A7B40BB1E556DF30086CBF6 /* TiMailcoreSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TiMailcoreSession.m; path = Classes/TiMailcoreSession.m; sourceTree = "<group>"; };
 		0A7B40BF1E556EBE0086CBF6 /* MailCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MailCore.h; sourceTree = "<group>"; };
 		0A7B40C01E556EBE0086CBF6 /* MCAbstract.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAbstract.h; sourceTree = "<group>"; };
 		0A7B40C11E556EBE0086CBF6 /* MCAbstractMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAbstractMessage.h; sourceTree = "<group>"; };
@@ -326,8 +326,8 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				0A7B40BA1E556DF30086CBF6 /* TiMailcoreSessionProxy.h */,
-				0A7B40BB1E556DF30086CBF6 /* TiMailcoreSessionProxy.m */,
+				0A7B40BA1E556DF30086CBF6 /* TiMailcoreSession.h */,
+				0A7B40BB1E556DF30086CBF6 /* TiMailcoreSession.m */,
 				24DE9E0F11C5FE74003F90F6 /* TiMailcoreModuleAssets.h */,
 				24DE9E1011C5FE74003F90F6 /* TiMailcoreModuleAssets.m */,
 				24DD6CF71134B3F500162E58 /* TiMailcoreModule.h */,
@@ -579,7 +579,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA747D9F0F9514B9006C5449 /* TiMailcore_Prefix.pch in Headers */,
-				0A7B40BC1E556DF30086CBF6 /* TiMailcoreSessionProxy.h in Headers */,
+				0A7B40BC1E556DF30086CBF6 /* TiMailcoreSession.h in Headers */,
 				24DD6CF91134B3F500162E58 /* TiMailcoreModule.h in Headers */,
 				24DE9E1111C5FE74003F90F6 /* TiMailcoreModuleAssets.h in Headers */,
 			);
@@ -656,7 +656,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				24DD6CFA1134B3F500162E58 /* TiMailcoreModule.m in Sources */,
-				0A7B40BD1E556DF30086CBF6 /* TiMailcoreSessionProxy.m in Sources */,
+				0A7B40BD1E556DF30086CBF6 /* TiMailcoreSession.m in Sources */,
 				24DE9E1211C5FE74003F90F6 /* TiMailcoreModuleAssets.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

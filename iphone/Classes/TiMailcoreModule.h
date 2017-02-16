@@ -8,4 +8,6 @@
 {
 }
 
+-(id)createSession:(id)args;
+
 @end

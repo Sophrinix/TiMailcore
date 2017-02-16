@@ -6,7 +6,7 @@
 #import "TiBase.h"
 #import "TiHost.h"
 #import "TiUtils.h"
-#import "TiMailcoreSessionProxy.h"
+#import "TiMailcoreSession.h"
 
 @implementation TiMailcoreModule
 
@@ -85,24 +85,35 @@
 
 #pragma Public APIs
 
--(id)open:(id)args {
+-(id)createSession:(id)args {
     NSInteger nargs = [args count];
-    if (nargs >= 3) {
-        TiMailcoreSessionproxy * session = nil;
+    
+    if (nargs >= 2) {
+        TiMailcoreSession * session = nil;
         
-        session = [[TiMailcoreSessionproxy alloc]
-            init:[[TiUtils stringValue:[args objectAtIndex:0]] retain]
-            password:[[TiUtils stringValue:[args objectAtIndex:1]] retain]
-            atHost:[[TiUtils stringValue:[args objectAtIndex:2]] retain]
-            atPort: (nargs >= 4) ? [TiUtils intValue:[args objectAtIndex:3]] : 993
-            withCtype:(nargs >= 5) ? [TiUtils intValue:[args objectAtIndex:4]] : MCOConnectionTypeTLS
-         ];
+        NSDictionary * params = [args objectAtIndex:0];
+        KrollCallback* callback = [args objectAtIndex:1];
         
-        return session;
+        session = [[TiMailcoreSession alloc]
+            init:[params valueForKey:@"email"]
+            password:[params valueForKey:@"password"]
+            atHost:[params valueForKey:@"host"]
+            atPort:[params valueForKey:@"port"] || 993
+            withCtype:[params valueForKey:@"ctype"] || MCOConnectionTypeTLS
+            cb:^(bool success) {
+                if(success) {
+                    [callback call:@[] thisObject:nil];
+                } else {
+                    NSLog(@"[ERROR] could not authenticate session.");
+                    [session release];
+                }
+            }
+        ];
     } else {
-        NSLog(@"[ERROR] Too few arguments: email, password, host, <port>, <ctype>");
-        return nil;
+        NSLog(@"[ERROR] Too few arguments to createSession: {email, password, host, <port>, <ctype>}, callback");
     }
+    
+    return nil;
 }
 
 

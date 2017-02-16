@@ -8,9 +8,13 @@
 
 @implementation TiMailcoreSession
 
-
-/*
-- (id)init: (NSString*)email password:(NSString*)pass atHost:(NSString*)host atPort:(int)port withCtype:(MCOConnectionType)ctype {
+- (id)init: (NSString*)email
+    password:(NSString*)pass
+    atHost:(NSString*)host
+    atPort:(int)port
+    withCtype:(MCOConnectionType)ctype
+    cb:(void (^)(bool))cb
+{
     self = [super init];
     if (self != nil) {
         session = [[MCOIMAPSession alloc] init];
@@ -19,10 +23,20 @@
         [session setUsername:email];
         [session setPassword:pass];
         [session setConnectionType:ctype];
+        
+        cb(false);
     }
     return self;
 }
 
+- (void)dealloc {
+    [session release];
+    [super dealloc];
+}
+
+
+
+/*
 - (Boolean)checkAccount {
     __block bool success = true;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);

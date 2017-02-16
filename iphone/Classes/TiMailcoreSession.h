@@ -9,10 +9,15 @@
 @interface TiMailcoreSession : TiProxy {
     MCOIMAPSession * session;
 }
-- (void)applyProperties:(id)args;
 
+- (id)init: (NSString*)email
+    password:(NSString*)pass
+    atHost:(NSString*)host
+    atPort:(int)port
+    withCtype:(MCOConnectionType)ctype
+    cb:(void (^)(bool))cb;
 /*
-- (id)init: (NSString*)email password:(NSString*)pass atHost:(NSString*)host atPort:(int)port withCtype:(MCOConnectionType)ctype;
+
 
 - (Boolean)checkAccount;
 
