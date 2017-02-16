@@ -19,6 +19,13 @@ function doSession(session) {
 			Ti.API.info(error);
 		} else {
 			Ti.API.info(folders);
+			session.getMail(function(error, mail) {
+				if(error) {
+					Ti.API.info(error);
+				} else {
+					Ti.API.info(mail);
+				}
+			}, "INBOX", [105, 108]);
 		}
 	});
 }

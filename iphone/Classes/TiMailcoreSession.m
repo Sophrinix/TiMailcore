@@ -31,6 +31,7 @@
     [super dealloc];
 }
 
+// probably cant call this from titanium
 - (bool)checkAccount: (void (^)(bool))cb {
     MCOIMAPOperation * op = [session checkAccountOperation];
     [op start:^(NSError * error) {
@@ -46,12 +47,12 @@
     NSInteger nargs = [args count];
     
     if (nargs >= 1) {
-        NSMutableArray * result = [[NSMutableArray alloc] init];
         MCOIMAPFetchFoldersOperation * op = [session fetchAllFoldersOperation];
         [op start:^(NSError * error, NSArray *folders) {
             if(error) {
                 [[args objectAtIndex:0] call:@[error, @[]] thisObject:nil];
             } else {
+                NSMutableArray * result = [[NSMutableArray alloc] init];
                 for(MCOIMAPFolder * folder in folders) {
                     [result addObject: folder.path];
                 }
@@ -64,61 +65,52 @@
     }
 }
 
-/*
-
-
-- (id)getMailCount:(id)args {
-    __block int result = 0;
+- (void)getMail:(id)args {
+    NSInteger nargs = [args count];
     
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
-    NSString * folder = ([args count] >= 1) ? [[TiUtils stringValue:[args objectAtIndex:0]] retain] : @"INBOX";
-    
-    MCOIMAPFolderInfoOperation * op = [session folderInfoOperation: folder];
-    
-    [op start:^(NSError * error, MCOIMAPFolderInfo *info) {
-        if(error) {
-            
-        } else {
-            result = [info messageCount];
-        }
-        dispatch_semaphore_signal(sema);
-    }];
-    
-    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-    dispatch_release(sema);
-    
-    return [NSNumber numberWithInt:result];
-}
-
-- (id)getMail: (id)args {
-    if([args count] >= 1) {
-        KrollCallback* callback = [args objectAtIndex:0];
+    if (nargs >= 1) {
+        NSString * folder = @"INBOX";
         
-        NSString * folder = ([args count] >= 2) ? [[TiUtils stringValue:[args objectAtIndex:1]] retain] : @"INBOX";
+        if(nargs >= 2 && [args objectAtIndex:1]) {
+            folder = [args objectAtIndex:1];
+        }
+        
+        MCOIndexSet *uids;
+        if(nargs >= 3 && [args objectAtIndex:2]) {
+            NSArray * range = [args objectAtIndex:2];
+            uids = [MCOIndexSet indexSetWithRange:MCORangeMake([TiUtils intValue:range[0]], [TiUtils intValue:range[1]] - [TiUtils intValue:range[0]])];
+        } else {
+            uids = [MCOIndexSet indexSetWithRange:MCORangeMake(1, UINT64_MAX)];
+        }
         
         MCOIMAPMessagesRequestKind requestKind = (MCOIMAPMessagesRequestKind)
         (MCOIMAPMessagesRequestKindHeaders | MCOIMAPMessagesRequestKindHeaderSubject);
-        
-        MCOIndexSet *uids = [MCOIndexSet indexSetWithRange:MCORangeMake(1, UINT64_MAX)];
         
         MCOIMAPFetchMessagesOperation *fetchOperation = [session fetchMessagesOperationWithFolder:folder requestKind:requestKind uids:uids];
         
         [fetchOperation start:^(NSError * error, NSArray * fetchedMessages, MCOIndexSet * vanishedMessages) {
             if(error) {
-                
+                [[args objectAtIndex:0] call:@[error, @[]] thisObject:nil];
             } else {
-                NSMutableArray * results = [[NSMutableArray alloc] init];
+                NSMutableArray * result = [[NSMutableArray alloc] init];
                 for(MCOIMAPMessage * message in fetchedMessages) {
-                    [results addObject: @{
+                    [result addObject: @{
                                           @"uid": [NSNumber numberWithInt:message.uid],
                                           @"sender": message.header.sender.displayName,
                                           @"subject": message.header.subject
                                           }];
                 }
-                [callback call:@[results] thisObject:nil];
+                [[args objectAtIndex:0] call:@[[NSNull null], result] thisObject:nil];
             }
         }];
+    } else {
+        NSLog(@"[ERROR] Too few arguments to getFolders: callback(error, [mail items]), <folder>, <[uid min, uid max]>");
+    }
+}
+/*
+
+- (id)getMail: (id)args {
+ 
     } else {
         NSLog(@"[ERROR] Too few arguments: callback, <folder>");
     }

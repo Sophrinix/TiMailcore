@@ -17,6 +17,8 @@
     withCtype:(MCOConnectionType)ctype;
 
 - (bool)checkAccount: (void (^)(bool))cb;
+- (void)getFolders:(id)args;
+
 /*
 
 
