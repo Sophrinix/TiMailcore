@@ -15,4 +15,4 @@ name: TiMailcore
 moduleid: ti.mailcore
 guid: 094010ee-228c-46ba-bac9-0667e650ed5b
 platform: android
-minsdk: 6.0.1.GA
+minsdk: 5.4.1.GA

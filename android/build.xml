@@ -30,11 +30,6 @@
 		<fileset dir="${basedir}/../documentation"/>
 	</copy>
 
-	<!-- Copy example subdirectories -->
-	<mkdir dir="${basedir}/example"/>
-	<copy todir="${basedir}/example">
-		<fileset dir="${basedir}/../example"/>
-	</copy>
 
 	<!-- Copy assets subdirectories -->
 	<mkdir dir="${basedir}/assets"/>
