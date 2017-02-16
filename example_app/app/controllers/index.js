@@ -24,6 +24,13 @@ function doSession(session) {
 					Ti.API.info(error);
 				} else {
 					Ti.API.info(mail);
+					session.getMailInfo(107, function(error, email) {
+						if(error) {
+							Ti.API.info(error);
+						} else {
+							Ti.API.info(email);
+						}
+					});
 				}
 			}, "INBOX", [105, 108]);
 		}

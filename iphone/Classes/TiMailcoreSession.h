@@ -18,6 +18,8 @@
 
 - (bool)checkAccount: (void (^)(bool))cb;
 - (void)getFolders:(id)args;
+- (void)getMail:(id)args;
+- (id)compose: (id)args;
 
 /*
 

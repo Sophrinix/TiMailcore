@@ -104,49 +104,92 @@
             }
         }];
     } else {
-        NSLog(@"[ERROR] Too few arguments to getFolders: callback(error, [mail items]), <folder>, <[uid min, uid max]>");
-    }
-}
-/*
-
-- (id)getMail: (id)args {
- 
-    } else {
-        NSLog(@"[ERROR] Too few arguments: callback, <folder>");
+        NSLog(@"[ERROR] Too few arguments to getMail: callback(error, [mail items]), <folder>, <[uid min, uid max]>");
     }
 }
 
-- (id)getMailInfo:(id)args {
-    if([args count] >= 2) {
-        KrollCallback* callback = [args objectAtIndex:0];
-        
-        NSNumber * uid = [args objectAtIndex:1];
-        
-        NSString * folder = ([args count] >= 3) ? [[TiUtils stringValue:[args objectAtIndex:2]] retain] : @"INBOX";
-        
+- (void)getMailInfo:(id)args {
+    NSInteger nargs = [args count];
+    
+    if (nargs >= 2) {
+        NSString * folder = @"INBOX";
+    
+        if(nargs >= 3 && [args objectAtIndex:2]) {
+            folder = [args objectAtIndex:2];
+        }
+
         MCOIMAPMessagesRequestKind requestKind = (MCOIMAPMessagesRequestKind)
         (MCOIMAPMessagesRequestKindHeaders | MCOIMAPMessagesRequestKindHeaderSubject | MCOIMAPMessagesRequestKindStructure | MCOIMAPMessagesRequestKindExtraHeaders | MCOIMAPMessagesRequestKindFullHeaders);
         
-        MCOIndexSet *uids = [MCOIndexSet indexSetWithRange:MCORangeMake(uid, uid)];
+        MCOIndexSet *uids = [MCOIndexSet indexSetWithRange:MCORangeMake([TiUtils intValue:[args objectAtIndex:0]], 1)];
         
         MCOIMAPFetchMessagesOperation *fetchOperation = [session fetchMessagesOperationWithFolder:folder requestKind:requestKind uids:uids];
         
         [fetchOperation start:^(NSError * error, NSArray * fetchedMessages, MCOIndexSet * vanishedMessages) {
             if(error) {
-                
+                [[args objectAtIndex:1] call:@[error, @{}] thisObject:nil];
             } else {
                 if(fetchedMessages.count >= 1) {
                     MCOIMAPMessage * message = [fetchedMessages firstObject];
-                    
                     NSMutableDictionary * email = [self compose: nil];
                     [email setObject:message.header.subject forKey:@"subject"];
+                    
+                    [[args objectAtIndex:1] call:@[[NSNull null], email] thisObject:nil];
                 } else {
-                    NSLog(@"[ERROR] Could not find email message.");
-                    [callback call:nil thisObject:nil];
+                    [[args objectAtIndex:1] call:@[@"No message found.", @{}] thisObject:nil];
                 }
             }
         }];
-        
+
+    } else {
+        NSLog(@"[ERROR] Too few arguments to getMailInfo: uid, callback(error, {email}), <folder>");
+    }
+}
+
+- (id)compose: (id)args {
+    NSMutableDictionary * email_data = [self _getEmailStructure];
+    NSMutableDictionary * email_header = [self _getHeaderStructure];
+    // prepare header
+    
+    [self _applyHeader: email_header to:&email_data];
+    
+    return email_data;
+}
+
+
+- (NSMutableDictionary*)_getEmailStructure {
+    return [@{
+              @"subject": @"",
+              @"body": @""
+              } mutableCopy];
+}
+
+- (NSMutableDictionary*)_getHeaderStructure {
+    return [@{
+              } mutableCopy];
+}
+
+- (NSMutableDictionary*)_getAddressStructure {
+    return [@{
+              @"to": [[NSMutableArray alloc] init],
+              @"cc": [[NSMutableArray alloc] init],
+              @"bcc": [[NSMutableArray alloc] init],
+              @"from": @""
+              } mutableCopy];
+}
+
+- (void)_applyHeader:(NSMutableDictionary*)header to:(NSMutableDictionary**)email {
+    [*email setObject:header forKey:@"header"];
+}
+
+- (void)_applyAddresses:(NSMutableDictionary*)address to:(NSMutableDictionary**)email {
+    [*email setObject:address forKey:@"address"];
+}
+
+
+/*
+
+ 
     } else {
         NSLog(@"[ERROR] Too few arguments: callback, uid, <folder>");
     }
@@ -199,17 +242,6 @@
  }
  *****
 
-- (id)compose: (id)args {
-    NSLog(@"[INFO] compose");
-    NSMutableDictionary * email_data = [self _getEmailStructure];
-    NSMutableDictionary * email_header = [self _getHeaderStructure];
-    // prepare header
-    
-    [self _applyHeader: email_header to:&email_data];
-    
-    return email_data;
-    
-}
 
 - (id)send: (id)args {
     NSLog(@"[INFO] send");
@@ -232,35 +264,6 @@
     } else {
         NSLog(@"[ERROR] Too few arguments: email, <target>");
     }
-}
-
-- (NSMutableDictionary*)_getEmailStructure {
-    return [@{
-              @"subject": @"",
-              @"body": @""
-              } mutableCopy];
-}
-
-- (NSMutableDictionary*)_getHeaderStructure {
-    return [@{
-              } mutableCopy];
-}
-
-- (NSMutableDictionary*)_getAddressStructure {
-    return [@{
-              @"to": [[NSMutableArray alloc] init],
-              @"cc": [[NSMutableArray alloc] init],
-              @"bcc": [[NSMutableArray alloc] init],
-              @"from": @""
-              } mutableCopy];
-}
-
-- (void)_applyHeader:(NSMutableDictionary*)header to:(NSMutableDictionary**)email {
-    [*email setObject:header forKey:@"header"];
-}
-
-- (void)_applyAddresses:(NSMutableDictionary*)address to:(NSMutableDictionary**)email {
-    [*email setObject:address forKey:@"address"];
 }
 
 -(void)_send:(NSMutableDictionary*)email {
