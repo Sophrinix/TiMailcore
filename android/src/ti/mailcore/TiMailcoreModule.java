@@ -15,15 +15,33 @@ import org.appcelerator.kroll.common.TiConfig;
 import org.appcelerator.kroll.KrollFunction;
 
 import com.libmailcore.ConnectionType;
+import com.libmailcore.OperationCallback;
+import com.libmailcore.MailException;
+import com.libmailcore.IMAPFetchMessagesOperation;
+import com.libmailcore.IMAPMessage;
+import com.libmailcore.MailException;
+import com.libmailcore.OperationCallback;
+import com.libmailcore.IndexSet;
+import com.libmailcore.IMAPMessagesRequestKind;
+import com.libmailcore.Range;
+import com.libmailcore.IMAPSession;
+import com.libmailcore.MailException;
+import com.libmailcore.OperationCallback;
+import com.libmailcore.IMAPMessage;
+import com.libmailcore.IMAPMessageRenderingOperation;
 
 import java.util.HashMap;
 
 @Kroll.module(name="TiMailcore", id="ti.mailcore")
-public class TiMailcoreModule extends KrollModule
+public class TiMailcoreModule extends KrollModule implements OperationCallback
 {
 	// Standard Debugging variables
 	private static final String LCAT = "TiMailcoreModule";
 	private static final boolean DBG = TiConfig.LOGD;
+
+	private KrollFunction win;
+	private KrollFunction fail;
+	private TiMailcoreSession session;
 
 	// You can define constants with @Kroll.constant, for example:
 	// @Kroll.constant public static final String EXTERNAL_NAME = value;
@@ -48,11 +66,26 @@ public class TiMailcoreModule extends KrollModule
 		int port = arguments.containsKey("port") ? arguments.getInt("port") : 993;
 		int ctype = arguments.containsKey("ctype") ? arguments.getInt("ctype") : ConnectionType.ConnectionTypeTLS;
 
+		session = new TiMailcoreSession(this, email, password, host, port, ctype);
+
+		if(arguments.containsKey("onsuccess")) {
+			win = (KrollFunction)arguments.get("onsuccess");
+		}
+
 		if(arguments.containsKey("onerror")) {
-			KrollFunction fail = (KrollFunction)arguments.get("onerror");
-			Object args[] = new Object[1];
-			args[0] = new String("Could not authenticate.");
-			fail.call((KrollObject)fail, args);
+			fail = (KrollFunction)arguments.get("onerror");
 		}
 	}
+
+  public void succeeded() {
+		Object args[] = new Object[1];
+		args[0] = session;
+		win.call(getKrollObject(), args);
+  }
+
+  public void failed(MailException exception) {
+		Object args[] = new Object[1];
+		args[0] = new String("Could not authenticate.");;
+		fail.call(getKrollObject(), args);
+  }
 }

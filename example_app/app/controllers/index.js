@@ -2,7 +2,7 @@
 var test = require("ti.mailcore");
 
 function doClick(e) {
-	var s = test.createSession({
+	test.createSession({
 		email: "ereynolds@codexlabs.com",
 		password: "F00b4rm4n",
 		host: "imap.gmail.com",

@@ -67,4 +67,13 @@
     </target>
 
 	<import file="${titanium.platform}/../module/android/build.xml"/>
+    
+    
+    <target name="post.dist">
+        <copy todir="../example_app/modules/android/ti.mailcore/1.0.0">
+            <fileset dir="dist">
+                <include name="*.jar"/>
+            </fileset>
+        </copy>
+    </target>
 </project>
