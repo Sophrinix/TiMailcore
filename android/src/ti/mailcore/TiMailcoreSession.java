@@ -3,56 +3,22 @@
  */
 package ti.mailcore;
 
-import org.appcelerator.kroll.KrollDict;
-import org.appcelerator.kroll.KrollProxy;
-import org.appcelerator.kroll.KrollFunction;
 import org.appcelerator.kroll.annotations.Kroll;
-import org.appcelerator.titanium.TiC;
-import org.appcelerator.kroll.common.Log;
-import org.appcelerator.kroll.common.TiConfig;
-import org.appcelerator.titanium.util.TiConvert;
+import org.appcelerator.kroll.KrollFunction;
 import org.appcelerator.kroll.KrollProxy;
-import org.appcelerator.titanium.view.TiCompositeLayout;
-import org.appcelerator.titanium.view.TiCompositeLayout.LayoutArrangement;
-import org.appcelerator.titanium.view.TiUIView;
+import org.appcelerator.kroll.common.TiConfig;
 
+import com.libmailcore.IMAPOperation;
+import com.libmailcore.IMAPSession;
+import com.libmailcore.IMAPMessage;
+import com.libmailcore.IMAPFetchMessagesOperation;
+import com.libmailcore.IMAPFetchFoldersOperation;
 import com.libmailcore.IMAPMessagesRequestKind;
 import com.libmailcore.IMAPFolder;
-import com.libmailcore.IMAPFetchFoldersOperation;
-import com.libmailcore.IMAPSession;
-import com.libmailcore.IMAPOperation;
-import com.libmailcore.ConnectionType;
-import com.libmailcore.OperationCallback;
-import com.libmailcore.MailException;
-import com.libmailcore.IMAPFetchMessagesOperation;
-import com.libmailcore.IMAPMessage;
-import com.libmailcore.MailException;
-import com.libmailcore.OperationCallback;
 import com.libmailcore.IndexSet;
-import com.libmailcore.IMAPMessagesRequestKind;
-import com.libmailcore.Range;
-import com.libmailcore.IMAPSession;
 import com.libmailcore.MailException;
 import com.libmailcore.OperationCallback;
-import com.libmailcore.IMAPMessage;
-import com.libmailcore.IMAPMessageRenderingOperation;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.app.ListFragment;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.os.Bundle;
-import android.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebView;
+import com.libmailcore.Range;
 
 import java.util.HashMap;
 import java.util.ArrayList;

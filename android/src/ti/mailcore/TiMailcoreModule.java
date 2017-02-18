@@ -4,33 +4,17 @@
 
 package ti.mailcore;
 
-import org.appcelerator.kroll.KrollObject;
-import org.appcelerator.kroll.KrollModule;
-import org.appcelerator.kroll.KrollDict;
-import org.appcelerator.kroll.annotations.Kroll;
-
 import org.appcelerator.titanium.TiApplication;
-import org.appcelerator.kroll.common.Log;
-import org.appcelerator.kroll.common.TiConfig;
+
+import org.appcelerator.kroll.annotations.Kroll;
+import org.appcelerator.kroll.KrollDict;
 import org.appcelerator.kroll.KrollFunction;
+import org.appcelerator.kroll.KrollModule;
+import org.appcelerator.kroll.common.TiConfig;
 
+import com.libmailcore.MailException;
+import com.libmailcore.OperationCallback;
 import com.libmailcore.ConnectionType;
-import com.libmailcore.OperationCallback;
-import com.libmailcore.MailException;
-import com.libmailcore.IMAPFetchMessagesOperation;
-import com.libmailcore.IMAPMessage;
-import com.libmailcore.MailException;
-import com.libmailcore.OperationCallback;
-import com.libmailcore.IndexSet;
-import com.libmailcore.IMAPMessagesRequestKind;
-import com.libmailcore.Range;
-import com.libmailcore.IMAPSession;
-import com.libmailcore.MailException;
-import com.libmailcore.OperationCallback;
-import com.libmailcore.IMAPMessage;
-import com.libmailcore.IMAPMessageRenderingOperation;
-
-import java.util.HashMap;
 
 @Kroll.module(name="TiMailcore", id="ti.mailcore")
 public class TiMailcoreModule extends KrollModule implements OperationCallback
