@@ -78,14 +78,10 @@ public class TiMailcoreModule extends KrollModule implements OperationCallback
 	}
 
   public void succeeded() {
-		Object args[] = new Object[1];
-		args[0] = session;
-		win.call(getKrollObject(), args);
+		win.call(getKrollObject(), new Object[]{session});
   }
 
   public void failed(MailException exception) {
-		Object args[] = new Object[1];
-		args[0] = new String("Could not authenticate.");;
-		fail.call(getKrollObject(), args);
+		fail.call(getKrollObject(), new Object[]{"Could not authenticate"});
   }
 }
