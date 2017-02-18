@@ -41,30 +41,28 @@
 	<!-- Copy license -->
 	<copy todir="${basedir}" file="${basedir}/../LICENSE"/>
 
+    <copy todir="${libs}/armeabi">
+        <fileset dir="jniLibs/armeabi">
+            <include name="*.so"/>
+        </fileset>
+    </copy>
+    <copy todir="${libs}/armeabi-v7a">
+        <fileset dir="jniLibs/armeabi-v7a">
+            <include name="*.so"/>
+        </fileset>
+    </copy>
+    <copy todir="${libs}/x86">
+        <fileset dir="jniLibs/x86">
+            <include name="*.so"/>
+        </fileset>
+    </copy>
+
 	<target name="cleancopy" description="Delete old copies">
 		<delete dir="${basedir}/documentation"/>
 		<delete dir="${basedir}/example"/>
 		<delete dir="${basedir}/assets"/>
 		<delete file="${basedir}/LICENSE"/>
 	</target>
-
-	<target name="classes.jar">
-      <copy todir="${libs}/armeabi">
-        <fileset dir="jniLibs/armeabi">
-          <include name="*.so"/>
-        </fileset>
-      </copy>
-      <copy todir="${libs}/armeabi-v7a">
-        <fileset dir="jniLibs/armeabi-v7a">
-          <include name="*.so"/>
-        </fileset>
-      </copy>
-      <copy todir="${libs}/x86">
-        <fileset dir="jniLibs/x86">
-          <include name="*.so"/>
-        </fileset>
-      </copy>
-    </target>
 
 	<import file="${titanium.platform}/../module/android/build.xml"/>
     
