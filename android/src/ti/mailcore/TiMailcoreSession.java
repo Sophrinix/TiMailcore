@@ -16,6 +16,7 @@ import org.appcelerator.titanium.view.TiCompositeLayout;
 import org.appcelerator.titanium.view.TiCompositeLayout.LayoutArrangement;
 import org.appcelerator.titanium.view.TiUIView;
 
+import com.libmailcore.IMAPMessagesRequestKind;
 import com.libmailcore.IMAPFolder;
 import com.libmailcore.IMAPFetchFoldersOperation;
 import com.libmailcore.IMAPSession;
@@ -106,7 +107,7 @@ public class TiMailcoreSession extends KrollProxy
 	// creation of the operation and formatting of its results.
 	private abstract class CallbackCaller implements OperationCallback {
 			private IMAPOperation operation;
-			private KrollFunction callback;
+			protected KrollFunction callback;
 
 			public CallbackCaller(KrollFunction cb) {
 				callback = cb;
@@ -129,6 +130,7 @@ public class TiMailcoreSession extends KrollProxy
 			}
 	}
 
+
 	@Kroll.method
 	public void getFolders(KrollFunction cb) {
 		GetFoldersCaller caller = new GetFoldersCaller(cb);
@@ -149,13 +151,16 @@ public class TiMailcoreSession extends KrollProxy
 			for(IMAPFolder folder : folders) {
 				result.add(folder.path());
 			}
-			return new Object[]{result}; // temp
+			return new Object[]{result};
 		}
 	}
 
+
 	@Kroll.method
 	public void getMail(KrollFunction cb, String folder, int range[]) {
-		GetMailCaller caller = new GetMailCaller(cb);
+		IndexSet uids = IndexSet.indexSetWithRange(new Range(range[0], range[1] - range[0]));
+		GetMailCaller caller = new GetMailCaller(cb, folder, uids);
+
 		caller.start();
 	}
 	@Kroll.method
@@ -167,104 +172,81 @@ public class TiMailcoreSession extends KrollProxy
 		getMail(cb, "INBOX");
 	}
 	private class GetMailCaller extends CallbackCaller {
-		public GetMailCaller(KrollFunction cb) {
+		private String folder;
+		private IndexSet uids;
+
+		public GetMailCaller(KrollFunction cb, String f, IndexSet u) {
 			super(cb);
+			folder = f;
+			uids = u;
 		}
 
 		protected IMAPOperation createOperation() {
-			return session.fetchAllFoldersOperation(); // temp
+			int requestKind = IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaders | IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaderSubject;
+
+			return session.fetchMessagesByNumberOperation(folder, requestKind, uids);
 		}
 
 		protected Object[] formatResult(IMAPOperation operation) {
-			return new Object[]{}; // temp
+			java.util.List<IMAPMessage> messages = ((IMAPFetchMessagesOperation)operation).messages();
+			ArrayList result = new ArrayList();
+			for(IMAPMessage message : messages) {
+				HashMap data = new HashMap();
+				data.put("uid", message.uid());
+				data.put("sender", message.header().sender().displayName());
+				data.put("subject", message.header().subject());
+
+				result.add(data);
+			}
+			return new Object[]{result};
 		}
 	}
-	/*
-
-- (void)getMail:(id)args {
-        MCOIndexSet *uids;
-        if(nargs >= 3 && [args objectAtIndex:2]) {
-            NSArray * range = [args objectAtIndex:2];
-            uids = [MCOIndexSet indexSetWithRange:MCORangeMake([TiUtils intValue:range[0]], [TiUtils intValue:range[1]] - [TiUtils intValue:range[0]])];
-        } else {
-            uids = [MCOIndexSet indexSetWithRange:MCORangeMake(1, UINT64_MAX)];
-        }
-
-        MCOIMAPMessagesRequestKind requestKind = (MCOIMAPMessagesRequestKind)
-        (MCOIMAPMessagesRequestKindHeaders | MCOIMAPMessagesRequestKindHeaderSubject);
-
-        MCOIMAPFetchMessagesOperation *fetchOperation = [session fetchMessagesOperationWithFolder:folder requestKind:requestKind uids:uids];
-
-        [fetchOperation start:^(NSError * error, NSArray * fetchedMessages, MCOIndexSet * vanishedMessages) {
-            if(error) {
-                [[args objectAtIndex:0] call:@[error, @[]] thisObject:nil];
-            } else {
-                NSMutableArray * result = [[NSMutableArray alloc] init];
-                for(MCOIMAPMessage * message in fetchedMessages) {
-                    [result addObject: @{
-                                          @"uid": [NSNumber numberWithInt:message.uid],
-                                          @"sender": message.header.sender.displayName,
-                                          @"subject": message.header.subject
-                                          }];
-                }
-                [[args objectAtIndex:0] call:@[[NSNull null], result] thisObject:nil];
-            }
-        }];
-}
-
-	*/
 
 
-		@Kroll.method
-		public void getMailInfo(int uid, KrollFunction cb, String folder) {
+	@Kroll.method
+	public void getMailInfo(int uid, KrollFunction cb, String folder) {
 
-		}
-		@Kroll.method
-		public void getMailInfo(int uid, KrollFunction cb) {
-			getMailInfo(uid, cb, "INBOX");
-		}
-
-		private class GetMailInfoCaller extends CallbackCaller {
-			public GetMailInfoCaller(KrollFunction cb) {
-				super(cb);
-			}
-
-			protected IMAPOperation createOperation() {
-				return session.fetchAllFoldersOperation(); // temp
-			}
-
-			protected Object[] formatResult(IMAPOperation operation) {
-				return new Object[]{}; // temp
-			}
-		}
-
-	/*
-
-	- (void)getMailInfo:(id)args {
-	        MCOIMAPMessagesRequestKind requestKind = (MCOIMAPMessagesRequestKind)
-	        (MCOIMAPMessagesRequestKindHeaders | MCOIMAPMessagesRequestKindHeaderSubject | MCOIMAPMessagesRequestKindStructure | MCOIMAPMessagesRequestKindExtraHeaders | MCOIMAPMessagesRequestKindFullHeaders);
-
-	        MCOIndexSet *uids = [MCOIndexSet indexSetWithRange:MCORangeMake([TiUtils intValue:[args objectAtIndex:0]], 1)];
-
-	        MCOIMAPFetchMessagesOperation *fetchOperation = [session fetchMessagesOperationWithFolder:folder requestKind:requestKind uids:uids];
-
-	        [fetchOperation start:^(NSError * error, NSArray * fetchedMessages, MCOIndexSet * vanishedMessages) {
-	            if(error) {
-	                [[args objectAtIndex:1] call:@[error, @{}] thisObject:nil];
-	            } else {
-	                if(fetchedMessages.count >= 1) {
-	                    MCOIMAPMessage * message = [fetchedMessages firstObject];
-	                    NSMutableDictionary * email = [self compose: nil];
-	                    [email setObject:message.header.subject forKey:@"subject"];
-
-	                    [[args objectAtIndex:1] call:@[[NSNull null], email] thisObject:nil];
-	                } else {
-	                    [[args objectAtIndex:1] call:@[@"No message found.", @{}] thisObject:nil];
-	                }
-	            }
-	        }];
 	}
-	*/
+	@Kroll.method
+	public void getMailInfo(int uid, KrollFunction cb) {
+		getMailInfo(uid, cb, "INBOX");
+	}
+
+	private class GetMailInfoCaller extends CallbackCaller {
+		private String folder;
+		private int uid;
+
+		public GetMailInfoCaller(KrollFunction cb, int u, String f) {
+			super(cb);
+			uid = u;
+			folder = f;
+		}
+
+		protected IMAPOperation createOperation() {
+			int requestKind = IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaders;
+			requestKind |= IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaderSubject;
+			requestKind |= IMAPMessagesRequestKind.IMAPMessagesRequestKindStructure;
+			requestKind |= IMAPMessagesRequestKind.IMAPMessagesRequestKindExtraHeaders;
+			requestKind |= IMAPMessagesRequestKind.IMAPMessagesRequestKindFullHeaders;
+
+			IndexSet uids = IndexSet.indexSetWithRange(new Range(uid, 1));
+
+			return session.fetchMessagesByNumberOperation(folder, requestKind, uids);
+		}
+
+		protected Object[] formatResult(IMAPOperation operation) {
+			java.util.List<IMAPMessage> messages = ((IMAPFetchMessagesOperation)operation).messages();
+
+			if(messages.size() >= 1) {
+				IMAPMessage message = messages.get(0);
+				HashMap email = compose();
+				email.put("subject", message.header().subject());
+				return new Object[]{email};
+			} else {
+				return new Object[]{};
+			}
+		}
+	}
 
 	@Kroll.method
 	public HashMap compose() {
