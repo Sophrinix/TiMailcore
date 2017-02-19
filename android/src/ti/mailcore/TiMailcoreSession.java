@@ -6,7 +6,9 @@ package ti.mailcore;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.kroll.KrollFunction;
 import org.appcelerator.kroll.KrollProxy;
+import org.appcelerator.kroll.KrollDict;
 import org.appcelerator.kroll.common.TiConfig;
+import org.appcelerator.kroll.common.Log;
 
 import com.libmailcore.IMAPOperation;
 import com.libmailcore.IMAPSession;
@@ -77,18 +79,18 @@ public class TiMailcoreSession extends KrollProxy
 
 			public CallbackCaller(KrollFunction cb) {
 				callback = cb;
-				operation = createOperation();
 			}
 
 			abstract protected IMAPOperation createOperation();
 			abstract protected Object[] formatResult(IMAPOperation operation);
 
 			public void start() {
+				operation = createOperation();
 				operation.start(this);
 			}
 
 			public void succeeded() {
-				callback.call(getKrollObject(), formatResult(operation));
+				callback.call(getKrollObject(), new Object[]{null, formatResult(operation)});
 			}
 
 			public void failed(MailException exception) {
@@ -99,7 +101,7 @@ public class TiMailcoreSession extends KrollProxy
 
 	@Kroll.method
 	public void getFolders(KrollFunction cb) {
-		GetFoldersCaller caller = new GetFoldersCaller(cb);
+		CallbackCaller caller = new GetFoldersCaller(cb);
 		caller.start();
 	}
 	private class GetFoldersCaller extends CallbackCaller {
@@ -117,7 +119,7 @@ public class TiMailcoreSession extends KrollProxy
 			for(IMAPFolder folder : folders) {
 				result.add(folder.path());
 			}
-			return new Object[]{result};
+			return result.toArray(new String[result.size()]);
 		}
 	}
 
@@ -125,7 +127,7 @@ public class TiMailcoreSession extends KrollProxy
 	@Kroll.method
 	public void getMail(KrollFunction cb, String folder, int range[]) {
 		IndexSet uids = IndexSet.indexSetWithRange(new Range(range[0], range[1] - range[0]));
-		GetMailCaller caller = new GetMailCaller(cb, folder, uids);
+		CallbackCaller caller = new GetMailCaller(cb, folder, uids);
 
 		caller.start();
 	}
@@ -157,21 +159,23 @@ public class TiMailcoreSession extends KrollProxy
 			java.util.List<IMAPMessage> messages = ((IMAPFetchMessagesOperation)operation).messages();
 			ArrayList result = new ArrayList();
 			for(IMAPMessage message : messages) {
-				HashMap data = new HashMap();
+				HashMap data = new KrollDict();
 				data.put("uid", message.uid());
 				data.put("sender", message.header().sender().displayName());
 				data.put("subject", message.header().subject());
 
 				result.add(data);
 			}
-			return new Object[]{result};
+
+			return result.toArray(new KrollDict[result.size()]);
 		}
 	}
 
 
 	@Kroll.method
 	public void getMailInfo(int uid, KrollFunction cb, String folder) {
-
+		CallbackCaller caller = new GetMailInfoCaller(cb, uid, folder);
+		caller.start();
 	}
 	@Kroll.method
 	public void getMailInfo(int uid, KrollFunction cb) {
@@ -196,20 +200,21 @@ public class TiMailcoreSession extends KrollProxy
 			requestKind |= IMAPMessagesRequestKind.IMAPMessagesRequestKindFullHeaders;
 
 			IndexSet uids = IndexSet.indexSetWithRange(new Range(uid, 1));
-
 			return session.fetchMessagesByNumberOperation(folder, requestKind, uids);
 		}
 
 		protected Object[] formatResult(IMAPOperation operation) {
 			java.util.List<IMAPMessage> messages = ((IMAPFetchMessagesOperation)operation).messages();
 
+			Log.i("messages found", String.format("%d", messages.size()));
 			if(messages.size() >= 1) {
 				IMAPMessage message = messages.get(0);
-				HashMap email = compose();
-				email.put("subject", message.header().subject());
-				return new Object[]{email};
+				//HashMap email = compose();
+				//email.put("subject", message.header().subject());
+				//return email;
+				return new Object[]{new HashMap()};
 			} else {
-				return new Object[]{};
+				return new Object[]{new HashMap()};
 			}
 		}
 	}
@@ -237,9 +242,9 @@ public class TiMailcoreSession extends KrollProxy
 	}
 	private HashMap _getAddressStructure() {
 		HashMap structure = new HashMap();
-		structure.put("to", new ArrayList());
-		structure.put("cc", new ArrayList());
-		structure.put("bcc", new ArrayList());
+		structure.put("to", new Object[0]);
+		structure.put("cc", new Object[0]);
+		structure.put("bcc", new Object[0]);
 		return structure;
 	}
 
