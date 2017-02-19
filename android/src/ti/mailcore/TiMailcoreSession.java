@@ -47,28 +47,7 @@ public class TiMailcoreSession extends KrollProxy
 
 	// probably cant call this from titanium.
 	public void checkAccount() {
-		CheckAccountCaller caller = new CheckAccountCaller(parent);
-		caller.start();
-	}
-	private class CheckAccountCaller implements OperationCallback {
-		private KrollFunction callback;
-
-		public CheckAccountCaller(TiMailcoreModule p) {
-			parent = p;
-		}
-
-		public void start() {
-			IMAPOperation op = session.checkAccountOperation();
-			op.start(this);
-		}
-
-    public void succeeded() {
-			parent.succeeded();
-    }
-
-    public void failed(MailException exception) {
-			parent.failed(exception);
-    }
+		session.checkAccountOperation().start(parent);
 	}
 
 	// Abstract base class of all callback job handlers. Just have to handle
@@ -99,6 +78,7 @@ public class TiMailcoreSession extends KrollProxy
 	}
 
 
+	// Get folder listing
 	@Kroll.method
 	public void getFolders(KrollFunction cb) {
 		CallbackCaller caller = new GetFoldersCaller(cb);
@@ -124,11 +104,11 @@ public class TiMailcoreSession extends KrollProxy
 	}
 
 
+	// Get basic info of a mail folder with optional uid range
 	@Kroll.method
 	public void getMail(KrollFunction cb, String folder, int range[]) {
 		IndexSet uids = IndexSet.indexSetWithRange(new Range(range[0], range[1] - range[0]));
 		CallbackCaller caller = new GetMailCaller(cb, folder, uids);
-
 		caller.start();
 	}
 	@Kroll.method
@@ -150,7 +130,8 @@ public class TiMailcoreSession extends KrollProxy
 		}
 
 		protected IMAPOperation createOperation() {
-			int requestKind = IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaders | IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaderSubject;
+			int requestKind = IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaders |
+				IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaderSubject;
 
 			return session.fetchMessagesByNumberOperation(folder, requestKind, uids);
 		}
@@ -172,6 +153,7 @@ public class TiMailcoreSession extends KrollProxy
 	}
 
 
+	// Get detailed info about one specific email by its uid
 	@Kroll.method
 	public void getMailInfo(int uid, KrollFunction cb, String folder) {
 		CallbackCaller caller = new GetMailInfoCaller(cb, uid, folder);
@@ -193,11 +175,11 @@ public class TiMailcoreSession extends KrollProxy
 		}
 
 		protected IMAPOperation createOperation() {
-			int requestKind = IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaders;
-			requestKind |= IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaderSubject;
-			requestKind |= IMAPMessagesRequestKind.IMAPMessagesRequestKindStructure;
-			requestKind |= IMAPMessagesRequestKind.IMAPMessagesRequestKindExtraHeaders;
-			requestKind |= IMAPMessagesRequestKind.IMAPMessagesRequestKindFullHeaders;
+			int requestKind = IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaders |
+				IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaderSubject |
+			  IMAPMessagesRequestKind.IMAPMessagesRequestKindStructure |
+			  IMAPMessagesRequestKind.IMAPMessagesRequestKindExtraHeaders |
+			  IMAPMessagesRequestKind.IMAPMessagesRequestKindFullHeaders;
 
 			IndexSet uids = IndexSet.indexSetWithIndex(uid);
 			return session.fetchMessagesByNumberOperation(folder, requestKind, uids);
@@ -217,6 +199,8 @@ public class TiMailcoreSession extends KrollProxy
 		}
 	}
 
+
+	// Get a basic skeleton of an email
 	@Kroll.method
 	public HashMap compose() {
 		HashMap email_data = _getEmailStructure();
@@ -228,6 +212,8 @@ public class TiMailcoreSession extends KrollProxy
 		return email_data;
 	}
 
+
+	// Private methods defining email json structure
 	private HashMap _getEmailStructure() {
 		HashMap structure = new HashMap();
 		structure.put("subject", "");

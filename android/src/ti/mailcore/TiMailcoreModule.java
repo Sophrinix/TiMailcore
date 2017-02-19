@@ -17,9 +17,7 @@ import com.libmailcore.OperationCallback;
 import com.libmailcore.ConnectionType;
 
 @Kroll.module(name="TiMailcore", id="ti.mailcore")
-public class TiMailcoreModule extends KrollModule implements OperationCallback
-{
-	// Standard Debugging variables
+public class TiMailcoreModule extends KrollModule implements OperationCallback {
 	private static final String LCAT = "TiMailcoreModule";
 	private static final boolean DBG = TiConfig.LOGD;
 
@@ -27,18 +25,12 @@ public class TiMailcoreModule extends KrollModule implements OperationCallback
 	private KrollFunction fail;
 	private TiMailcoreSession session;
 
-	// You can define constants with @Kroll.constant, for example:
-	// @Kroll.constant public static final String EXTERNAL_NAME = value;
-
-	public TiMailcoreModule()
-	{
+	public TiMailcoreModule() {
 		super();
 	}
 
 	@Kroll.onAppCreate
-	public static void onAppCreate(TiApplication app)
-	{
-		// put module init code that needs to run when the application is created
+	public static void onAppCreate(TiApplication app) {
 	}
 
 	// Methods
@@ -50,24 +42,28 @@ public class TiMailcoreModule extends KrollModule implements OperationCallback
 		int port = arguments.containsKey("port") ? arguments.getInt("port") : 993;
 		int ctype = arguments.containsKey("ctype") ? arguments.getInt("ctype") : ConnectionType.ConnectionTypeTLS;
 
-		session = new TiMailcoreSession(this, email, password, host, port, ctype);
-
+		win = null;
+		fail = null;
 		if(arguments.containsKey("onsuccess")) {
 			win = (KrollFunction)arguments.get("onsuccess");
 		}
-
 		if(arguments.containsKey("onerror")) {
 			fail = (KrollFunction)arguments.get("onerror");
 		}
 
+		session = new TiMailcoreSession(this, email, password, host, port, ctype);
 		session.checkAccount();
 	}
 
   public void succeeded() {
-		win.call(getKrollObject(), new Object[]{session});
+		if(win != null) {
+			win.call(getKrollObject(), new Object[]{session});
+		}
   }
 
   public void failed(MailException exception) {
-		fail.call(getKrollObject(), new Object[]{"Could not authenticate"});
+		if(fail != null) {
+			fail.call(getKrollObject(), new Object[]{"Could not authenticate"});
+		}
   }
 }
