@@ -59,6 +59,8 @@ public class TiMailcoreModule extends KrollModule implements OperationCallback
 		if(arguments.containsKey("onerror")) {
 			fail = (KrollFunction)arguments.get("onerror");
 		}
+
+		session.checkAccount();
 	}
 
   public void succeeded() {
