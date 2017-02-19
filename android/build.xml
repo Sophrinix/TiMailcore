@@ -41,6 +41,16 @@
 	<!-- Copy license -->
 	<copy todir="${basedir}" file="${basedir}/../LICENSE"/>
 
+	<target name="cleancopy" description="Delete old copies">
+		<delete dir="${basedir}/documentation"/>
+		<delete dir="${basedir}/example"/>
+		<delete dir="${basedir}/assets"/>
+		<delete file="${basedir}/LICENSE"/>
+	</target>
+
+	<import file="${titanium.platform}/../module/android/build.xml"/>
+    
+    
     <copy todir="${libs}/armeabi">
         <fileset dir="jniLibs/armeabi">
             <include name="*.so"/>
@@ -56,16 +66,6 @@
             <include name="*.so"/>
         </fileset>
     </copy>
-
-	<target name="cleancopy" description="Delete old copies">
-		<delete dir="${basedir}/documentation"/>
-		<delete dir="${basedir}/example"/>
-		<delete dir="${basedir}/assets"/>
-		<delete file="${basedir}/LICENSE"/>
-	</target>
-
-	<import file="${titanium.platform}/../module/android/build.xml"/>
-    
     
     <target name="post.dist">
         <copy todir="../example_app/modules/android/ti.mailcore/1.0.0">
