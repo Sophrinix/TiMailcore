@@ -173,20 +173,20 @@ public class TiMailcoreSession extends KrollProxy
 
 
 	@Kroll.method
-	public void getMailInfo(long uid, KrollFunction cb, String folder) {
+	public void getMailInfo(int uid, KrollFunction cb, String folder) {
 		CallbackCaller caller = new GetMailInfoCaller(cb, uid, folder);
 		caller.start();
 	}
 	@Kroll.method
-	public void getMailInfo(long uid, KrollFunction cb) {
+	public void getMailInfo(int uid, KrollFunction cb) {
 		getMailInfo(uid, cb, "INBOX");
 	}
 
 	private class GetMailInfoCaller extends CallbackCaller {
 		private String folder;
-		private long uid;
+		private int uid;
 
-		public GetMailInfoCaller(KrollFunction cb, long u, String f) {
+		public GetMailInfoCaller(KrollFunction cb, int u, String f) {
 			super(cb);
 			uid = u;
 			folder = f;
@@ -206,13 +206,13 @@ public class TiMailcoreSession extends KrollProxy
 		protected Object formatResult(IMAPOperation operation) {
 			java.util.List<IMAPMessage> messages = ((IMAPFetchMessagesOperation)operation).messages();
 
-			if(messages.size() >= 1) {
+			if(messages.isEmpty()) {
+				return null;
+			} else {
 				IMAPMessage message = messages.get(0);
 				HashMap email = compose();
 				email.put("subject", message.header().subject());
 				return email;
-			} else {
-				return null;
 			}
 		}
 	}
