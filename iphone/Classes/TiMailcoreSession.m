@@ -50,7 +50,7 @@
         MCOIMAPFetchFoldersOperation * op = [session fetchAllFoldersOperation];
         [op start:^(NSError * error, NSArray *folders) {
             if(error) {
-                [[args objectAtIndex:0] call:@[error, @[]] thisObject:nil];
+                [[args objectAtIndex:0] call:@[[error description], @[]] thisObject:nil];
             } else {
                 NSMutableArray * result = [[NSMutableArray alloc] init];
                 for(MCOIMAPFolder * folder in folders) {
@@ -90,7 +90,7 @@
         
         [fetchOperation start:^(NSError * error, NSArray * fetchedMessages, MCOIndexSet * vanishedMessages) {
             if(error) {
-                [[args objectAtIndex:0] call:@[error, @[]] thisObject:nil];
+                [[args objectAtIndex:0] call:@[[error description], @[]] thisObject:nil];
             } else {
                 NSMutableArray * result = [[NSMutableArray alloc] init];
                 for(MCOIMAPMessage * message in fetchedMessages) {
@@ -127,14 +127,62 @@
         
         [fetchOperation start:^(NSError * error, NSArray * fetchedMessages, MCOIndexSet * vanishedMessages) {
             if(error) {
-                [[args objectAtIndex:1] call:@[error, @{}] thisObject:nil];
+                [[args objectAtIndex:1] call:@[[error description], @{}] thisObject:nil];
             } else {
                 if(fetchedMessages.count >= 1) {
                     MCOIMAPMessage * message = [fetchedMessages firstObject];
                     NSMutableDictionary * email = [self compose: nil];
-                    [email setObject:message.header.subject forKey:@"subject"];
+                    NSMutableDictionary * header = [email valueForKey:@"header"];
+                    NSMutableDictionary * address = [email valueForKey:@"address"];
+
+                    for(NSString * extra in [message.header allExtraHeadersNames]) {
+                        NSString * extra_data = [message.header extraHeaderValueForName:extra];
+                        if(extra_data) {
+                            [header setObject:extra_data forKey:extra];
+                        }
+                    }
                     
-                    [[args objectAtIndex:1] call:@[[NSNull null], email] thisObject:nil];
+                    NSString * subject = message.header.subject;
+                    NSString * date = [message.header.date description];
+                    NSString * recieved_date = [message.header.receivedDate description];
+                    NSString * user_agent = message.header.userAgent;
+                    
+                    if(subject) {
+                        [email setObject:subject forKey:@"subject"];
+                    }
+                    if(date) {
+                        [header setObject:date forKey:@"date"];
+                    }
+                    if(date) {
+                        [header setObject:recieved_date forKey:@"recieved_date"];
+                    }
+                    if(user_agent) {
+                        [header setObject:user_agent forKey:@"user_agent"];
+                    }
+                    
+                    NSMutableDictionary * from = [address valueForKey:@"from"];
+                    MCOAddress * sender = message.header.from;
+                    NSString * display_name = sender.displayName;
+                    NSString * mailbox = sender.mailbox;
+                    
+                    if(display_name) {
+                        [from setObject:display_name forKey:@"name"];
+                    }
+                    if(mailbox) {
+                        [from setObject:mailbox forKey:@"mailbox"];
+                    }
+            
+                    
+                    MCOIMAPFetchContentOperation *contentOperation = [session fetchMessageOperationWithFolder:folder uid:[TiUtils intValue:[args objectAtIndex:0]]];
+                    [contentOperation start:^(NSError * error, NSData * data) {
+                        if(error) {
+                            [[args objectAtIndex:1] call:@[[error description], @{}] thisObject:nil];
+                        } else {
+                            [header setObject: [data base64Encoding] forKey:@"raw"];
+                            
+                            [[args objectAtIndex:1] call:@[[NSNull null], email] thisObject:nil];
+                        }
+                    }];
                 } else {
                     [[args objectAtIndex:1] call:@[@"No message found.", @{}] thisObject:nil];
                 }
@@ -149,9 +197,10 @@
 - (id)compose: (id)args {
     NSMutableDictionary * email_data = [self _getEmailStructure];
     NSMutableDictionary * email_header = [self _getHeaderStructure];
-    // prepare header
+    NSMutableDictionary * email_address = [self _getAddressStructure];
     
     [self _applyHeader: email_header to:&email_data];
+    [self _applyAddresses: email_address to:&email_data];
     
     return email_data;
 }
@@ -174,7 +223,7 @@
               @"to": [[NSMutableArray alloc] init],
               @"cc": [[NSMutableArray alloc] init],
               @"bcc": [[NSMutableArray alloc] init],
-              @"from": @""
+              @"from": [[NSMutableDictionary alloc] init]
               } mutableCopy];
 }
 

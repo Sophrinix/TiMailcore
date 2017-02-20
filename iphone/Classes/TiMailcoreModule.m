@@ -85,7 +85,7 @@
 
 #pragma Public APIs
 
--(id) :(id)args {
+-(id) createSession:(id)args {
     NSInteger nargs = [args count];
     
     if (nargs >= 1) {
