@@ -1,0 +1,32 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "9115FBAAAB2C2E23C78B8568261DD710EC1825D1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "dfc29bdd-3216-0410-991c-e03cc46cb475++9595" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "9115FBAAAB2C2E23C78B8568261DD710EC1825D1" : 0,
+    "dfc29bdd-3216-0410-991c-e03cc46cb475++9595" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "A5A4601F-A3E4-46A5-BFA0-562B42C9DC0D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "9115FBAAAB2C2E23C78B8568261DD710EC1825D1" : "TiMailcore\/",
+    "dfc29bdd-3216-0410-991c-e03cc46cb475++9595" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "TiMailcore",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "iphone\/TiMailcore.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/JosephAustin\/TiMailcore.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9115FBAAAB2C2E23C78B8568261DD710EC1825D1"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/svn.code.sf.net\/p\/irrlicht\/code",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "dfc29bdd-3216-0410-991c-e03cc46cb475++9595"
+    }
+  ]
+}

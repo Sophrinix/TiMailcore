@@ -125,6 +125,7 @@
         
         MCOIMAPFetchMessagesOperation *fetchOperation = [session fetchMessagesOperationWithFolder:folder requestKind:requestKind uids:uids];
         
+        fetchOperation.extraHeaders = @[@"X-Mailer", @"X-Received", @"Received", @"X-Test", @"x-test"];
         [fetchOperation start:^(NSError * error, NSArray * fetchedMessages, MCOIndexSet * vanishedMessages) {
             if(error) {
                 [[args objectAtIndex:1] call:@[[error description], @{}] thisObject:nil];
@@ -172,17 +173,7 @@
                         [from setObject:mailbox forKey:@"mailbox"];
                     }
             
-                    
-                    MCOIMAPFetchContentOperation *contentOperation = [session fetchMessageOperationWithFolder:folder uid:[TiUtils intValue:[args objectAtIndex:0]]];
-                    [contentOperation start:^(NSError * error, NSData * data) {
-                        if(error) {
-                            [[args objectAtIndex:1] call:@[[error description], @{}] thisObject:nil];
-                        } else {
-                            [header setObject: [data base64Encoding] forKey:@"raw"];
-                            
-                            [[args objectAtIndex:1] call:@[[NSNull null], email] thisObject:nil];
-                        }
-                    }];
+                    [[args objectAtIndex:1] call:@[[NSNull null], email] thisObject:nil];
                 } else {
                     [[args objectAtIndex:1] call:@[@"No message found.", @{}] thisObject:nil];
                 }
