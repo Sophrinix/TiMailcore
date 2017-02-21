@@ -13,6 +13,7 @@ import org.appcelerator.kroll.common.Log;
 import com.libmailcore.IMAPOperation;
 import com.libmailcore.IMAPSession;
 import com.libmailcore.IMAPMessage;
+import com.libmailcore.IMAPFetchContentOperation;
 import com.libmailcore.IMAPFetchMessagesOperation;
 import com.libmailcore.IMAPFetchFoldersOperation;
 import com.libmailcore.IMAPMessagesRequestKind;
@@ -21,6 +22,8 @@ import com.libmailcore.IndexSet;
 import com.libmailcore.MailException;
 import com.libmailcore.OperationCallback;
 import com.libmailcore.Range;
+import com.libmailcore.Address;
+import com.libmailcore.MessageHeader;
 
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -175,27 +178,77 @@ public class TiMailcoreSession extends KrollProxy
 		}
 
 		protected IMAPOperation createOperation() {
-			int requestKind = IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaders |
-				IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaderSubject |
-			  IMAPMessagesRequestKind.IMAPMessagesRequestKindStructure |
-			  IMAPMessagesRequestKind.IMAPMessagesRequestKindExtraHeaders |
-			  IMAPMessagesRequestKind.IMAPMessagesRequestKindFullHeaders;
-
-			IndexSet uids = IndexSet.indexSetWithIndex(uid);
-			return session.fetchMessagesByNumberOperation(folder, requestKind, uids);
+			return session.fetchMessageByNumberOperation(folder, uid);
 		}
 
-		protected Object formatResult(IMAPOperation operation) {
-			java.util.List<IMAPMessage> messages = ((IMAPFetchMessagesOperation)operation).messages();
-
-			if(messages.isEmpty()) {
-				return null;
-			} else {
-				IMAPMessage message = messages.get(0);
-				HashMap email = compose();
-				email.put("subject", message.header().subject());
-				return email;
-			}
+        protected Object formatResult(IMAPOperation operation) {
+            byte[] data = ((IMAPFetchContentOperation)operation).data();
+            HashMap email = compose();
+            HashMap email_headers = (HashMap)email.get("headers");
+            HashMap email_addresses = (HashMap)email.get("addresses");
+            
+            MessageHeader header = new MessageHeader(data);
+            
+            if(header != null) {
+                // Basic data and headers
+                if(header.subject() != null) {
+                    email.put("subject", header.subject());
+                }
+                if(header.date() != null) {
+                    email.put("date", header.date().toString());
+                }
+                if(header.receivedDate() != null) {
+                    email.put("receivedDate", header.receivedDate().toString());
+                }
+                if(header.allExtraHeadersNames() != null) {
+                    for(String extra : header.allExtraHeadersNames()) {
+                        String extra_data = header.extraHeaderValueForName(extra);
+                        if(extra_data != null) {
+                            email_headers.put(extra, extra_data);
+                        }
+                    }
+                }
+                // 'From' address
+                if(header.from() != null) {
+                    HashMap from = (HashMap)email_addresses.get("from");
+                    String display_name = header.from().displayName();
+                    String mailbox = header.from().mailbox();
+                    if(display_name != null) {
+                        from.put("name", display_name);
+                    }
+                    if(mailbox != null) {
+                        from.put("mailbox", mailbox);
+                    }
+                }
+                
+                // Remainder of the address types
+                HashMap address_types = new HashMap();
+                address_types.put("to", header.to());
+                address_types.put("cc", header.cc());
+                address_types.put("bcc", header.bcc());
+                address_types.put("replyTo", header.replyTo());
+                
+                for(Object address_section_obj : address_types.keySet()) {
+                    String address_section = (String)address_section_obj;
+                    
+                    java.util.List<Address> addresses = (java.util.List<Address>)address_types.get(address_section);
+                    HashMap new_addresses = new HashMap();
+                    
+                    for(Address address : addresses) {
+                        String display_name = address.displayName();
+                        String mailbox = address.mailbox();
+                        if(display_name != null) {
+                            new_addresses.put("name", display_name);
+                        }
+                        if(mailbox != null) {
+                            new_addresses.put("mailbox", mailbox);
+                        }
+                    }
+                    email_addresses.put(address_section, new_addresses);
+                }
+            }
+            
+            return email;
 		}
 	}
 
@@ -228,15 +281,17 @@ public class TiMailcoreSession extends KrollProxy
 		HashMap structure = new HashMap();
 		structure.put("to", new Object[0]);
 		structure.put("cc", new Object[0]);
-		structure.put("bcc", new Object[0]);
+        structure.put("bcc", new Object[0]);
+        structure.put("from", new Object[0]);
+        structure.put("replyTo", new Object[0]);
 		return structure;
 	}
 
 	private void _applyHeader(HashMap header, HashMap email) {
-		email.put("header", header);
+		email.put("headers", header);
 	}
 
 	private void _applyAddress(HashMap address, HashMap email) {
-		email.put("address", address);
+		email.put("addresses", address);
 	}
 }

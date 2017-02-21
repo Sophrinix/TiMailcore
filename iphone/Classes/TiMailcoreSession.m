@@ -118,68 +118,82 @@
             folder = [args objectAtIndex:2];
         }
 
-        MCOIMAPMessagesRequestKind requestKind = (MCOIMAPMessagesRequestKind)
-        (MCOIMAPMessagesRequestKindHeaders | MCOIMAPMessagesRequestKindHeaderSubject | MCOIMAPMessagesRequestKindStructure | MCOIMAPMessagesRequestKindExtraHeaders | MCOIMAPMessagesRequestKindFullHeaders);
+        MCOIMAPFetchContentOperation * op = [session fetchMessageOperationWithFolder:folder uid:[TiUtils intValue:[args objectAtIndex:0]]];
         
-        MCOIndexSet *uids = [MCOIndexSet indexSetWithRange:MCORangeMake([TiUtils intValue:[args objectAtIndex:0]], 1)];
-        
-        MCOIMAPFetchMessagesOperation *fetchOperation = [session fetchMessagesOperationWithFolder:folder requestKind:requestKind uids:uids];
-        
-        fetchOperation.extraHeaders = @[@"X-Mailer", @"X-Received", @"Received", @"X-Test", @"x-test"];
-        [fetchOperation start:^(NSError * error, NSArray * fetchedMessages, MCOIndexSet * vanishedMessages) {
+        [op start:^(NSError * error, NSData * data) {
             if(error) {
                 [[args objectAtIndex:1] call:@[[error description], @{}] thisObject:nil];
             } else {
-                if(fetchedMessages.count >= 1) {
-                    MCOIMAPMessage * message = [fetchedMessages firstObject];
-                    NSMutableDictionary * email = [self compose: nil];
-                    NSMutableDictionary * header = [email valueForKey:@"header"];
-                    NSMutableDictionary * address = [email valueForKey:@"address"];
-
-                    for(NSString * extra in [message.header allExtraHeadersNames]) {
-                        NSString * extra_data = [message.header extraHeaderValueForName:extra];
-                        if(extra_data) {
-                            [header setObject:extra_data forKey:extra];
+                NSMutableDictionary * email = [self compose: nil];
+                NSMutableDictionary * email_headers = [email valueForKey:@"headers"];
+                NSMutableDictionary * email_addresses = [email valueForKey:@"addresses"];
+                
+                MCOMessageHeader * header = [MCOMessageHeader headerWithData: data];
+                
+                if(header) {
+                    // Basic data and headers
+                    if(header.subject) {
+                        [email setObject:header.subject forKey:@"subject"];
+                    }
+                    if(header.date) {
+                        [email_headers setObject:[header.date description] forKey:@"date"];
+                    }
+                    if(header.receivedDate) {
+                        [email_headers setObject:[header.receivedDate description] forKey:@"received_date"];
+                    }
+                    if(header.allExtraHeadersNames) {
+                        for(NSString * extra in [header allExtraHeadersNames]) {
+                            NSString * extra_data = [header extraHeaderValueForName:extra];
+                            if(extra_data) {
+                                [email_headers setObject:extra_data forKey:extra];
+                            }
                         }
                     }
                     
-                    NSString * subject = message.header.subject;
-                    NSString * date = [message.header.date description];
-                    NSString * recieved_date = [message.header.receivedDate description];
-                    NSString * user_agent = message.header.userAgent;
-                    
-                    if(subject) {
-                        [email setObject:subject forKey:@"subject"];
-                    }
-                    if(date) {
-                        [header setObject:date forKey:@"date"];
-                    }
-                    if(date) {
-                        [header setObject:recieved_date forKey:@"recieved_date"];
-                    }
-                    if(user_agent) {
-                        [header setObject:user_agent forKey:@"user_agent"];
+                    // 'From' address
+                    if(header.from) {
+                        NSMutableDictionary * from = [email_addresses valueForKey:@"from"];
+                        NSString * display_name = header.from.displayName;
+                        NSString * mailbox = header.from.mailbox;
+                        if(display_name) {
+                            [from setObject:display_name forKey:@"name"];
+                        }
+                        if(mailbox) {
+                            [from setObject:mailbox forKey:@"mailbox"];
+                        }
                     }
                     
-                    NSMutableDictionary * from = [address valueForKey:@"from"];
-                    MCOAddress * sender = message.header.from;
-                    NSString * display_name = sender.displayName;
-                    NSString * mailbox = sender.mailbox;
+                    // Remainder of the address types
+                    NSDictionary * address_types = @{
+                                                     @"to": header.to ? header.to : @[],
+                                                     @"cc": header.cc ? header.cc : @[],
+                                                     @"bcc": header.bcc ? header.bcc : @[],
+                                                     @"replyTo": header.replyTo ? header.replyTo : @[]
+                                                     };
                     
-                    if(display_name) {
-                        [from setObject:display_name forKey:@"name"];
+                    for(NSString * address_section in address_types.allKeys) {
+                        NSArray * addresses = [address_types valueForKey:address_section];
+                        NSMutableDictionary * new_addresses = [[NSMutableDictionary alloc] init];
+                        
+                        for(MCOAddress * address in addresses) {
+                            NSString * display_name = address.displayName;
+                            NSString * mailbox = address.mailbox;
+                            if(display_name) {
+                                [new_addresses setObject:display_name forKey:@"name"];
+                            }
+                            if(mailbox) {
+                                [new_addresses setObject:mailbox forKey:@"mailbox"];
+                            }
+                        }
+                        
+                        [email_addresses setObject:new_addresses forKey:address_section];
                     }
-                    if(mailbox) {
-                        [from setObject:mailbox forKey:@"mailbox"];
-                    }
-            
-                    [[args objectAtIndex:1] call:@[[NSNull null], email] thisObject:nil];
-                } else {
-                    [[args objectAtIndex:1] call:@[@"No message found.", @{}] thisObject:nil];
+                    
                 }
+                
+                [[args objectAtIndex:1] call:@[[NSNull null], email] thisObject:nil];
             }
         }];
-
     } else {
         NSLog(@"[ERROR] Too few arguments to getMailInfo: uid, callback(error, {email}), <folder>");
     }
@@ -214,16 +228,17 @@
               @"to": [[NSMutableArray alloc] init],
               @"cc": [[NSMutableArray alloc] init],
               @"bcc": [[NSMutableArray alloc] init],
-              @"from": [[NSMutableDictionary alloc] init]
+              @"from": [[NSMutableDictionary alloc] init],
+              @"replyTo": [[NSMutableDictionary alloc] init]
               } mutableCopy];
 }
 
 - (void)_applyHeader:(NSMutableDictionary*)header to:(NSMutableDictionary**)email {
-    [*email setObject:header forKey:@"header"];
+    [*email setObject:header forKey:@"headers"];
 }
 
 - (void)_applyAddresses:(NSMutableDictionary*)address to:(NSMutableDictionary**)email {
-    [*email setObject:address forKey:@"address"];
+    [*email setObject:address forKey:@"addresses"];
 }
 
 
