@@ -168,29 +168,33 @@
                     }
                     
                     // Remainder of the address types
-                    NSDictionary * address_types = @{
+                    NSDictionary * address_sections = @{
                                                      @"to": header.to ? header.to : @[],
                                                      @"cc": header.cc ? header.cc : @[],
                                                      @"bcc": header.bcc ? header.bcc : @[],
                                                      @"replyTo": header.replyTo ? header.replyTo : @[]
                                                      };
                     
-                    for(NSString * address_section in address_types.allKeys) {
-                        NSArray * addresses = [address_types valueForKey:address_section];
-                        NSMutableDictionary * new_addresses = [[NSMutableDictionary alloc] init];
+                    for(NSString * address_section in address_sections.allKeys) {
+                        NSArray * addresses = [address_sections valueForKey:address_section];
                         
-                        for(MCOAddress * address in addresses) {
-                            NSString * display_name = address.displayName;
-                            NSString * mailbox = address.mailbox;
-                            if(display_name) {
-                                [new_addresses setObject:display_name forKey:@"name"];
+                        if(addresses) {
+                            NSMutableArray * my_addresses = [[NSMutableArray alloc] init];
+                            for(MCOAddress * address in addresses) {
+                                NSMutableDictionary * new_address = [[NSMutableDictionary alloc] init];
+                                
+                                NSString * display_name = address.displayName;
+                                NSString * mailbox = address.mailbox;
+                                if(display_name) {
+                                    [new_address setObject:display_name forKey:@"name"];
+                                }
+                                if(mailbox) {
+                                    [new_address setObject:mailbox forKey:@"mailbox"];
+                                }
+                                [my_addresses addObject:new_address];
                             }
-                            if(mailbox) {
-                                [new_addresses setObject:mailbox forKey:@"mailbox"];
-                            }
+                            [email_addresses setObject:my_addresses forKey:address_section];
                         }
-                        
-                        [email_addresses setObject:new_addresses forKey:address_section];
                     }
                 }
                 if(parser) {

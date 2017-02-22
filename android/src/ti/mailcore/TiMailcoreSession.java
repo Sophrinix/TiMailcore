@@ -223,29 +223,34 @@ public class TiMailcoreSession extends KrollProxy
                 }
                 
                 // Remainder of the address types
-                KrollDict address_types = new KrollDict();
-                address_types.put("to", header.to());
-                address_types.put("cc", header.cc());
-                address_types.put("bcc", header.bcc());
-                address_types.put("replyTo", header.replyTo());
-                
-                for(Object address_section_obj : address_types.keySet()) {
+                KrollDict address_sections = new KrollDict();
+                address_sections.put("to", header.to());
+                address_sections.put("cc", header.cc());
+                address_sections.put("bcc", header.bcc());
+                address_sections.put("replyTo", header.replyTo());
+                for(Object address_section_obj : address_sections.keySet()) {
                     String address_section = (String)address_section_obj;
+                    java.util.List<Address> addresses = (java.util.List<Address>)(address_sections.get(address_section));
                     
-                    java.util.List<Address> addresses = (java.util.List<Address>)address_types.get(address_section);
-                    KrollDict new_addresses = new KrollDict();
-                    
-                    for(Address address : addresses) {
-                        String display_name = address.displayName();
-                        String mailbox = address.mailbox();
-                        if(display_name != null) {
-                            new_addresses.put("name", display_name);
+                    if(addresses != null) {
+                        ArrayList my_addresses = new ArrayList();
+                        
+                        for(Address address : addresses) {
+                            KrollDict new_address = new KrollDict();
+                            
+                            String display_name = address.displayName();
+                            String mailbox = address.mailbox();
+                            if(display_name != null) {
+                                new_address.put("name", display_name);
+                            }
+                            if(mailbox != null) {
+                                new_address.put("mailbox", mailbox);
+                            }
+                            my_addresses.add(new_address);
                         }
-                        if(mailbox != null) {
-                            new_addresses.put("mailbox", mailbox);
-                        }
+                        
+                        email_addresses.put(address_section, my_addresses.toArray(new Object[my_addresses.size()]));
                     }
-                    email_addresses.put(address_section, new_addresses);
                 }
             }
             if(parser != null) {
@@ -287,7 +292,7 @@ public class TiMailcoreSession extends KrollProxy
 		structure.put("to", new Object[0]);
 		structure.put("cc", new Object[0]);
         structure.put("bcc", new Object[0]);
-        structure.put("from", new Object[0]);
+        structure.put("from", new KrollDict());
         structure.put("replyTo", new Object[0]);
 		return structure;
 	}
