@@ -24,8 +24,8 @@ import com.libmailcore.OperationCallback;
 import com.libmailcore.Range;
 import com.libmailcore.Address;
 import com.libmailcore.MessageHeader;
+import com.libmailcore.MessageParser;
 
-import java.util.HashMap;
 import java.util.ArrayList;
 
 @Kroll.proxy()
@@ -109,14 +109,14 @@ public class TiMailcoreSession extends KrollProxy
 
 	// Get basic info of a mail folder with optional uid range
 	@Kroll.method
-	public void getMail(KrollFunction cb, String folder, int range[]) {
+	public void getMail(KrollFunction cb, String folder, long range[]) {
 		IndexSet uids = IndexSet.indexSetWithRange(new Range(range[0], range[1] - range[0]));
 		CallbackCaller caller = new GetMailCaller(cb, folder, uids);
 		caller.start();
 	}
 	@Kroll.method
 	public void getMail(KrollFunction cb, String folder) {
-		getMail(cb, folder, new int[]{1, Integer.MAX_VALUE});
+		getMail(cb, folder, new long[]{1, Long.MAX_VALUE});
 	}
 	@Kroll.method
 	public void getMail(KrollFunction cb) {
@@ -136,14 +136,14 @@ public class TiMailcoreSession extends KrollProxy
 			int requestKind = IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaders |
 				IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaderSubject;
 
-			return session.fetchMessagesByNumberOperation(folder, requestKind, uids);
+			return session.fetchMessagesByUIDOperation(folder, requestKind, uids);
 		}
 
 		protected Object formatResult(IMAPOperation operation) {
 			java.util.List<IMAPMessage> messages = ((IMAPFetchMessagesOperation)operation).messages();
 			ArrayList result = new ArrayList();
 			for(IMAPMessage message : messages) {
-				HashMap data = new KrollDict();
+				KrollDict data = new KrollDict();
 				data.put("uid", message.uid());
 				data.put("sender", message.header().sender().displayName());
 				data.put("subject", message.header().subject());
@@ -158,36 +158,37 @@ public class TiMailcoreSession extends KrollProxy
 
 	// Get detailed info about one specific email by its uid
 	@Kroll.method
-	public void getMailInfo(int uid, KrollFunction cb, String folder) {
+	public void getMailInfo(long uid, KrollFunction cb, String folder) {
 		CallbackCaller caller = new GetMailInfoCaller(cb, uid, folder);
 		caller.start();
 	}
 	@Kroll.method
-	public void getMailInfo(int uid, KrollFunction cb) {
+	public void getMailInfo(long uid, KrollFunction cb) {
 		getMailInfo(uid, cb, "INBOX");
 	}
 
 	private class GetMailInfoCaller extends CallbackCaller {
 		private String folder;
-		private int uid;
+		private long uid;
 
-		public GetMailInfoCaller(KrollFunction cb, int u, String f) {
+		public GetMailInfoCaller(KrollFunction cb, long u, String f) {
 			super(cb);
 			uid = u;
-			folder = f;
+            folder = f;
 		}
 
 		protected IMAPOperation createOperation() {
-			return session.fetchMessageByNumberOperation(folder, uid);
+			return session.fetchMessageByUIDOperation(folder, uid);
 		}
 
         protected Object formatResult(IMAPOperation operation) {
             byte[] data = ((IMAPFetchContentOperation)operation).data();
-            HashMap email = compose();
-            HashMap email_headers = (HashMap)email.get("headers");
-            HashMap email_addresses = (HashMap)email.get("addresses");
+            KrollDict email = compose();
+            KrollDict email_headers = email.getKrollDict("headers");
+            KrollDict email_addresses = email.getKrollDict("addresses");
             
             MessageHeader header = new MessageHeader(data);
+            MessageParser parser = MessageParser.messageParserWithData(data);
             
             if(header != null) {
                 // Basic data and headers
@@ -210,7 +211,7 @@ public class TiMailcoreSession extends KrollProxy
                 }
                 // 'From' address
                 if(header.from() != null) {
-                    HashMap from = (HashMap)email_addresses.get("from");
+                    KrollDict from = email_addresses.getKrollDict("from");
                     String display_name = header.from().displayName();
                     String mailbox = header.from().mailbox();
                     if(display_name != null) {
@@ -222,7 +223,7 @@ public class TiMailcoreSession extends KrollProxy
                 }
                 
                 // Remainder of the address types
-                HashMap address_types = new HashMap();
+                KrollDict address_types = new KrollDict();
                 address_types.put("to", header.to());
                 address_types.put("cc", header.cc());
                 address_types.put("bcc", header.bcc());
@@ -232,7 +233,7 @@ public class TiMailcoreSession extends KrollProxy
                     String address_section = (String)address_section_obj;
                     
                     java.util.List<Address> addresses = (java.util.List<Address>)address_types.get(address_section);
-                    HashMap new_addresses = new HashMap();
+                    KrollDict new_addresses = new KrollDict();
                     
                     for(Address address : addresses) {
                         String display_name = address.displayName();
@@ -247,7 +248,9 @@ public class TiMailcoreSession extends KrollProxy
                     email_addresses.put(address_section, new_addresses);
                 }
             }
-            
+            if(parser != null) {
+                email.put("body", parser.htmlBodyRendering());
+            }
             return email;
 		}
 	}
@@ -255,30 +258,32 @@ public class TiMailcoreSession extends KrollProxy
 
 	// Get a basic skeleton of an email
 	@Kroll.method
-	public HashMap compose() {
-		HashMap email_data = _getEmailStructure();
-		HashMap email_header = _getHeaderStructure();
+	public KrollDict compose() {
+		KrollDict email_data = _getEmailStructure();
+        KrollDict email_header = _getHeaderStructure();
+        KrollDict email_address = _getAddressStructure();
 		// prepare header
 
-		_applyHeader(email_header, email_data);
+        _applyHeader(email_header, email_data);
+        _applyAddress(email_address, email_data);
 
 		return email_data;
 	}
 
 
 	// Private methods defining email json structure
-	private HashMap _getEmailStructure() {
-		HashMap structure = new HashMap();
+	private KrollDict _getEmailStructure() {
+		KrollDict structure = new KrollDict();
 		structure.put("subject", "");
 		structure.put("body", "");
 		return structure;
 	}
-	private HashMap _getHeaderStructure() {
-		HashMap structure = new HashMap();
+	private KrollDict _getHeaderStructure() {
+		KrollDict structure = new KrollDict();
 		return structure;
 	}
-	private HashMap _getAddressStructure() {
-		HashMap structure = new HashMap();
+	private KrollDict _getAddressStructure() {
+		KrollDict structure = new KrollDict();
 		structure.put("to", new Object[0]);
 		structure.put("cc", new Object[0]);
         structure.put("bcc", new Object[0]);
@@ -287,11 +292,11 @@ public class TiMailcoreSession extends KrollProxy
 		return structure;
 	}
 
-	private void _applyHeader(HashMap header, HashMap email) {
+	private void _applyHeader(KrollDict header, KrollDict email) {
 		email.put("headers", header);
 	}
 
-	private void _applyAddress(HashMap address, HashMap email) {
+	private void _applyAddress(KrollDict address, KrollDict email) {
 		email.put("addresses", address);
 	}
 }

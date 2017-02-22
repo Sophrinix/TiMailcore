@@ -4,10 +4,12 @@
 
 #import "TiProxy.h"
 #import "MailCore/MailCore.h"
+#import "TiMailcoreRenderingDelegate.h"
 
 
 @interface TiMailcoreSession : TiProxy {
     MCOIMAPSession * session;
+    TiMailcoreRenderingDelegate * rendering_delegate;
 }
 
 - (id)init: (NSString*)email
@@ -21,17 +23,4 @@
 - (void)getMail:(id)args;
 - (id)compose: (id)args;
 
-/*
-
-
-- (Boolean)checkAccount;
-
-- (id)getFolders: (id)args;
-- (id)getMailCount:(id)args;
-- (id)getMailInfo: (id)args;
-- (id)getMail: (id)args;
-
-- (id)compose: (id)args;
-- (id)send: (id)args;
-*/
 @end

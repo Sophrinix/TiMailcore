@@ -16,6 +16,8 @@
 {
     self = [super init];
     if (self != nil) {
+        rendering_delegate = [[TiMailcoreRenderingDelegate alloc] init];
+        
         session = [[MCOIMAPSession alloc] init];
         [session setHostname:host];
         [session setPort:port];
@@ -27,6 +29,7 @@
 }
 
 - (void)dealloc {
+    [rendering_delegate release];
     [session release];
     [super dealloc];
 }
@@ -129,6 +132,7 @@
                 NSMutableDictionary * email_addresses = [email valueForKey:@"addresses"];
                 
                 MCOMessageHeader * header = [MCOMessageHeader headerWithData: data];
+                MCOMessageParser * parser = [MCOMessageParser messageParserWithData:data];
                 
                 if(header) {
                     // Basic data and headers
@@ -188,7 +192,9 @@
                         
                         [email_addresses setObject:new_addresses forKey:address_section];
                     }
-                    
+                }
+                if(parser) {
+                    [email setObject:[parser htmlBodyRendering] forKey:@"body"];
                 }
                 
                 [[args objectAtIndex:1] call:@[[NSNull null], email] thisObject:nil];
@@ -241,88 +247,4 @@
     [*email setObject:address forKey:@"addresses"];
 }
 
-
-/*
-
- 
-    } else {
-        NSLog(@"[ERROR] Too few arguments: callback, uid, <folder>");
-    }
-}
-
-****
- - (void)getMailHeaders: (id)args {
- if([args count] >= 1) {
- KrollCallback* callback = [args objectAtIndex:0];
- 
- NSString * folder_name = ([args count] >= 2) ? [[TiUtils stringValue:[args objectAtIndex:1]] retain] : @"INBOX";
- 
- 
- MCOIMAPMessagesRequestKind requestKind = (MCOIMAPMessagesRequestKind)
- (MCOIMAPMessagesRequestKindHeaders | MCOIMAPMessagesRequestKindHeaderSubject);
- 
- 
- MCOIndexSet *uids = [MCOIndexSet indexSetWithRange:MCORangeMake(1, UINT64_MAX)];
- 
- MCOIMAPFetchMessagesOperation *fetchOperation = [session fetchMessagesOperationWithFolder:folder requestKind:requestKind uids:uids];
- 
- [fetchOperation start:^(NSError * error, NSArray * fetchedMessages, MCOIndexSet * vanishedMessages) {
- 
- if(error) {
- NSLog(@"Error downloading message headers:%@", error);
- } else {
- NSMutableArray * results = [[NSMutableArray alloc] init];
- /
- for each email in folder
- NSMutableDictionary * result = [[NSMutableDictionary alloc] init];
- 
- NSMutableDictionary * header = [self _getHeaderStructure];
- NSMutableDictionary * addresses = [self _getAddressStructure];
- 
- from header info, fill out header and address data
- 
- [self _applyHeader: header to:&result];
- [self _applyAddresses: addresses to:&result];
- [results addObject: result]'
- *
- 
- if(callback){
- [callback call:results thisObject:nil];
- }
- }
- }];
- } else {
- NSLog(@"[ERROR] Too few arguments: callback, <folder>");
- }
- }
- *****
-
-
-- (id)send: (id)args {
-    NSLog(@"[INFO] send");
-    
-    NSInteger nargs = [args count];
-    if (nargs >= 1) {
-        NSMutableDictionary * email = [args objectAtIndex:0];
-        
-        if(nargs >= 2) {
-            NSMutableDictionary * addresses;
-            if([[args objectAtIndex:1] isMemberOfClass:[NSString class]]) {
-                addresses = [self _getAddressStructure];
-                [[addresses valueForKey: @"to"] addObject:[args objectAtIndex:1]];
-            } else {
-                addresses = [args objectAtIndex:1];
-            }
-            [self _applyAddresses:addresses to:&email];
-        }
-        [self _send:email];
-    } else {
-        NSLog(@"[ERROR] Too few arguments: email, <target>");
-    }
-}
-
--(void)_send:(NSMutableDictionary*)email {
-    
-}
-*/
 @end
