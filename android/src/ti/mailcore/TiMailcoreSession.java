@@ -107,20 +107,20 @@ public class TiMailcoreSession extends KrollProxy
 	}
 
 
-	// Get basic info of a mail folder with optional uid range
+    // Get basic info of a mail folder with optional uid range
 	@Kroll.method
-	public void getMail(KrollFunction cb, String folder, long range[]) {
+    public void getMail(KrollFunction cb, @Kroll.argument(optional=true) String folder, @Kroll.argument(optional=true) long range[]) {
+        
+        if(folder == null) {
+            folder = "INBOX";
+        }
+        
+        if(range == null) {
+            range = new long[]{1, Long.MAX_VALUE};
+        }
 		IndexSet uids = IndexSet.indexSetWithRange(new Range(range[0], range[1] - range[0]));
 		CallbackCaller caller = new GetMailCaller(cb, folder, uids);
 		caller.start();
-	}
-	@Kroll.method
-	public void getMail(KrollFunction cb, String folder) {
-		getMail(cb, folder, new long[]{1, Long.MAX_VALUE});
-	}
-	@Kroll.method
-	public void getMail(KrollFunction cb) {
-		getMail(cb, "INBOX");
 	}
 	private class GetMailCaller extends CallbackCaller {
 		private String folder;
@@ -156,15 +156,14 @@ public class TiMailcoreSession extends KrollProxy
 	}
 
 
-	// Get detailed info about one specific email by its uid
+    // Get detailed info about one specific email by its uid
 	@Kroll.method
-	public void getMailInfo(long uid, KrollFunction cb, String folder) {
+	public void getMailInfo(long uid, KrollFunction cb, @Kroll.argument(optional=true)  String folder) {
+        if(folder == null) {
+            folder = "INBOX";
+        }
 		CallbackCaller caller = new GetMailInfoCaller(cb, uid, folder);
 		caller.start();
-	}
-	@Kroll.method
-	public void getMailInfo(long uid, KrollFunction cb) {
-		getMailInfo(uid, cb, "INBOX");
 	}
 
 	private class GetMailInfoCaller extends CallbackCaller {
