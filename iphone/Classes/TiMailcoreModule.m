@@ -236,7 +236,6 @@
             }
             [[args objectAtIndex:1] call:@[[NSNull null], result] thisObject:nil];
         }
-        [[session disconnectOperation] start:^(NSError * error) {}];
     }];
 }
 
@@ -273,7 +272,6 @@
             }
             [[args objectAtIndex:3] call:@[[NSNull null], result] thisObject:nil];
         }
-        [[session disconnectOperation] start:^(NSError * error) {}];
     }];
 }
 
