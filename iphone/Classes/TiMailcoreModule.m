@@ -277,7 +277,10 @@
                                                  } mutableCopy];
                 
                 for(NSString * hname in message.header.allExtraHeadersNames) {
-                    [email_result setObject:[message.header extraHeaderValueForName:hname] forKey:hname];
+                    NSString * extra_header = [message.header extraHeaderValueForName:hname];
+                    if(extra_header) {
+                        [email_result setObject:extra_header forKey:hname];
+                    }
                 }
                 
                 //@"extras": message.header.allExtraHeadersNames
