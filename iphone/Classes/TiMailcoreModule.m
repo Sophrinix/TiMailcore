@@ -270,6 +270,14 @@
         } else {
             NSMutableArray * result = [[NSMutableArray alloc] init];
             for(MCOIMAPMessage * message in fetchedMessages) {
+                /* WHY DOES THIS CRASH
+                @try {
+                    NSLog(@"[INFO] %@", [message attachments]);
+                } @catch(NSException * e) {
+                    NSLog(@"[INFO] %@", e);
+                }
+                 */
+//                @"has_attachments": ([message.attachments isEqual: [NSNull null]]) ? @"false" : @"true"
                 NSMutableDictionary * email_result = [@{
                                                  @"uid": [NSNumber numberWithInt:message.uid],
                                                  @"sender_name": message.header.sender.displayName ? message.header.sender.displayName : @"",
