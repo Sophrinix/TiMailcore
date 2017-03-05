@@ -276,7 +276,7 @@
                                                  @"sender_mailbox": message.header.sender.mailbox ? message.header.sender.mailbox : @"",
                                                  @"subject": message.header.subject ? message.header.subject : @"",
                                                  @"received_time": message.header.receivedDate ? [message.header.receivedDate description] : @"",
-                                                 @"has_attachments": message.attachments && [message.attachments count] > 0 ? @"true" : @"false"
+                                                 @"has_attachments": message.attachments && [message.attachments count] > 0 ? @true : @false
                                                  } mutableCopy];
                 
                 for(NSString * hname in message.header.allExtraHeadersNames) {
