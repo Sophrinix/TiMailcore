@@ -259,7 +259,7 @@
     }
     
     MCOIMAPMessagesRequestKind requestKind = (MCOIMAPMessagesRequestKind)
-        (MCOIMAPMessagesRequestKindHeaders | MCOIMAPMessagesRequestKindExtraHeaders |MCOIMAPMessagesRequestKindHeaderSubject);
+        (MCOIMAPMessagesRequestKindHeaders | MCOIMAPMessagesRequestKindExtraHeaders | MCOIMAPMessagesRequestKindStructure | MCOIMAPMessagesRequestKindHeaderSubject);
     
     MCOIMAPFetchMessagesOperation *fetchOperation = [session fetchMessagesOperationWithFolder:folder requestKind:requestKind uids:uids];
     
@@ -270,20 +270,13 @@
         } else {
             NSMutableArray * result = [[NSMutableArray alloc] init];
             for(MCOIMAPMessage * message in fetchedMessages) {
-                /* WHY DOES THIS CRASH
-                @try {
-                    NSLog(@"[INFO] %@", [message attachments]);
-                } @catch(NSException * e) {
-                    NSLog(@"[INFO] %@", e);
-                }
-                 */
-//                @"has_attachments": ([message.attachments isEqual: [NSNull null]]) ? @"false" : @"true"
                 NSMutableDictionary * email_result = [@{
                                                  @"uid": [NSNumber numberWithInt:message.uid],
                                                  @"sender_name": message.header.sender.displayName ? message.header.sender.displayName : @"",
                                                  @"sender_mailbox": message.header.sender.mailbox ? message.header.sender.mailbox : @"",
                                                  @"subject": message.header.subject ? message.header.subject : @"",
-                                                 @"received_time": message.header.receivedDate ? [message.header.receivedDate description] : @""
+                                                 @"received_time": message.header.receivedDate ? [message.header.receivedDate description] : @"",
+                                                 @"has_attachments": message.attachments && [message.attachments count] > 0 ? @"true" : @"false"
                                                  } mutableCopy];
                 
                 for(NSString * hname in message.header.allExtraHeadersNames) {
@@ -292,8 +285,6 @@
                         [email_result setObject:extra_header forKey:hname];
                     }
                 }
-                
-                //@"extras": message.header.allExtraHeadersNames
                 
                 [result addObject: email_result];
             }
