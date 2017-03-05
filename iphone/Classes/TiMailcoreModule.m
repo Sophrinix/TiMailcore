@@ -274,7 +274,7 @@
                                                  @"uid": [NSNumber numberWithInt:message.uid],
                                                  @"sender": message.header.sender.displayName ? message.header.sender.displayName : @"",
                                                  @"subject": message.header.subject ? message.header.subject : @"",
-                                                 @"received": message.header.receivedDate ? [message.header.receivedDate description] : @""
+                                                 @"received_time": message.header.receivedDate ? [message.header.receivedDate description] : @""
                                                  } mutableCopy];
                 
                 for(NSString * hname in message.header.allExtraHeadersNames) {
