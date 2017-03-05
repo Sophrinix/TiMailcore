@@ -247,34 +247,42 @@
     NSArray * range = [args objectAtIndex:2];
     
     MCOIndexSet *uids;
-    if(range) {
+    if(![range isEqual:[NSNull null]]) {
         uids = [MCOIndexSet indexSetWithRange:MCORangeMake([TiUtils intValue:range[0]], [TiUtils intValue:range[1]] - [TiUtils intValue:range[0]])];
     } else {
         uids = [MCOIndexSet indexSetWithRange:MCORangeMake(1, UINT64_MAX)];
     }
     
     MCOIMAPMessagesRequestKind requestKind = (MCOIMAPMessagesRequestKind)
-        (MCOIMAPMessagesRequestKindHeaders | MCOIMAPMessagesRequestKindHeaderSubject);
-        
+        (MCOIMAPMessagesRequestKindHeaders | MCOIMAPMessagesRequestKindExtraHeaders |MCOIMAPMessagesRequestKindHeaderSubject);
+    
     MCOIMAPFetchMessagesOperation *fetchOperation = [session fetchMessagesOperationWithFolder:folder requestKind:requestKind uids:uids];
-        
+    
+    fetchOperation.extraHeaders = @[@"X-EN-OrigIP", @"Received-SPF", @"x-test"];
     [fetchOperation start:^(NSError * error, NSArray * fetchedMessages, MCOIndexSet * vanishedMessages) {
         if(error) {
             [[args objectAtIndex:3] call:@[[error description], @[]] thisObject:nil];
         } else {
             NSMutableArray * result = [[NSMutableArray alloc] init];
             for(MCOIMAPMessage * message in fetchedMessages) {
-                [result addObject: @{
-                                     @"uid": [NSNumber numberWithInt:message.uid],
-                                     @"sender": message.header.sender.displayName,
-                                     @"subject": message.header.subject
-                                     }];
+                NSMutableDictionary * email_result = [@{
+                                                 @"uid": [NSNumber numberWithInt:message.uid],
+                                                 @"sender": message.header.sender.displayName,
+                                                 @"subject": message.header.subject
+                                                 } mutableCopy];
+                
+                for(NSString * hname in message.header.allExtraHeadersNames) {
+                    [email_result setObject:[message.header extraHeaderValueForName:hname] forKey:hname];
+                }
+                
+                //@"extras": message.header.allExtraHeadersNames
+                
+                [result addObject: email_result];
             }
             [[args objectAtIndex:3] call:@[[NSNull null], result] thisObject:nil];
         }
     }];
 }
-
 
 - (void)getMailInfo:(id)args {
     ENSURE_ARG_COUNT(args, 4);
