@@ -300,7 +300,7 @@
     NSInteger * uid = [TiUtils intValue:[args objectAtIndex:2]];
     
     MCOIMAPFetchContentOperation * op = [session fetchMessageOperationWithFolder:folder uid: uid];
-    
+//    MCOAttachment
     [op start:^(NSError * error, NSData * data) {
         if(error) {
             [[args objectAtIndex:2] call:@[[error description], @{}] thisObject:nil];
@@ -310,6 +310,17 @@
             NSMutableDictionary * email = [self _messageToJSON: parser];
             if(parser) {
                 [email setObject:[parser htmlBodyRendering] forKey:@"body"];
+                
+                NSMutableDictionary * attachments = [[NSMutableDictionary alloc]init];
+                if(parser.attachments) {
+                    for(MCOAttachment * attachment in parser.attachments) {
+                        NSDictionary * attachment_object = @{
+                                                             @"mime_type": attachment.mimeType ? attachment.mimeType : @"",
+                                                           @"data": attachment.data ? [attachment.data base64Encoding] : @""
+                                                           };
+                        [email setObject: attachment_object forKey: attachment.filename];
+                    }
+                }
             }
             
             [[args objectAtIndex:3] call:@[[NSNull null], email] thisObject:nil];
