@@ -87,6 +87,8 @@
     NSString * email = [credentials objectForKey:@"email"];
     NSString * password = [credentials objectForKey:@"password"];
     NSString * host_name = [credentials objectForKey:@"host"];
+    NSString * oauth_token = [credentials objectForKey:@"oauth_token"];
+    
     int port_name = [TiUtils intValue:[credentials objectForKey:@"port"]];
     MCOConnectionType ctype = [credentials objectForKey:@"ctype"] ? [TiUtils intValue:[credentials objectForKey:@"ctype"]] : MCOConnectionTypeTLS;
     
@@ -102,6 +104,9 @@
     [session setHostname: host_name];
     [session setPort: port_name];
     [session setConnectionType: ctype];
+    if(oauth_token) {
+        [session setOAuth2Token: oauth_token];
+    }
     
     if(smpt == NO) {
         MCOIMAPOperation * op = [session checkAccountOperation];
