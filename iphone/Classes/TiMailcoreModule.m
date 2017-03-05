@@ -311,7 +311,6 @@
             if(parser) {
                 [email setObject:[parser htmlBodyRendering] forKey:@"body"];
                 
-                NSMutableDictionary * attachments = [[NSMutableDictionary alloc]init];
                 if(parser.attachments) {
                     NSMutableArray * attachments = [[NSMutableArray alloc] init];
                     for(MCOAttachment * attachment in parser.attachments) {
