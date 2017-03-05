@@ -272,9 +272,9 @@
             for(MCOIMAPMessage * message in fetchedMessages) {
                 NSMutableDictionary * email_result = [@{
                                                  @"uid": [NSNumber numberWithInt:message.uid],
-                                                 @"sender": message.header.sender.displayName,
-                                                 @"subject": message.header.subject
-                                                 } mutableCopy];
+                                                 @"sender": message.header.sender.displayName ? message.header.sender.displayName : @"",
+                                                 @"subject": message.header.subject ? message.header.subject : @""
+                                                 } mutableCopy];s
                 
                 for(NSString * hname in message.header.allExtraHeadersNames) {
                     NSString * extra_header = [message.header extraHeaderValueForName:hname];
