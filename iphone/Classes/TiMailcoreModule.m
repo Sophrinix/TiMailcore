@@ -272,7 +272,8 @@
             for(MCOIMAPMessage * message in fetchedMessages) {
                 NSMutableDictionary * email_result = [@{
                                                  @"uid": [NSNumber numberWithInt:message.uid],
-                                                 @"sender": message.header.sender.displayName ? message.header.sender.displayName : @"",
+                                                 @"sender_name": message.header.sender.displayName ? message.header.sender.displayName : @"",
+                                                 @"sender_mailbox": message.header.sender.mailbox ? message.header.sender.mailbox : @"",
                                                  @"subject": message.header.subject ? message.header.subject : @"",
                                                  @"received_time": message.header.receivedDate ? [message.header.receivedDate description] : @""
                                                  } mutableCopy];
