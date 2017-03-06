@@ -61,6 +61,7 @@ public class TiMailcoreModule extends KrollModule {
 		String host_name = (String)credentials.get("host");
 		int port_name = credentials.getInt("port");
 		int ctype = credentials.containsKey("ctype") ? credentials.getInt("ctype") : ConnectionType.ConnectionTypeTLS;
+		String oauth_token = (credentials.get("oauth_token") != null) ? (String)credentials.get("oauth_token") : null;
 
 		Object session;
 
@@ -71,6 +72,9 @@ public class TiMailcoreModule extends KrollModule {
 			s_session.setHostname(host_name);
 			s_session.setPort(port_name);
 			s_session.setConnectionType(ctype);
+			if(oauth_token != null) {
+				s_session.setOAuth2Token(oauth_token);
+			}
 			session = s_session;
 		} else {
 			IMAPSession i_session = new IMAPSession();
@@ -79,6 +83,9 @@ public class TiMailcoreModule extends KrollModule {
 			i_session.setHostname(host_name);
 			i_session.setPort(port_name);
 			i_session.setConnectionType(ctype);
+			if(oauth_token != null) {
+				i_session.setOAuth2Token(oauth_token);
+			}
 			session = i_session;
 		}
 		return session;
