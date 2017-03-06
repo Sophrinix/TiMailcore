@@ -314,10 +314,7 @@
                 if(parser.attachments) {
                     NSMutableArray * attachments = [[NSMutableArray alloc] init];
                     for(MCOAttachment * attachment in parser.attachments) {
-                        NSDictionary * attachment_object = @{
-                                                           @"mime_type": attachment.mimeType ? attachment.mimeType : @"",
-                                                           @"data": attachment.data ? [attachment.data base64Encoding] : @""
-                                                           };
+                       
                         [attachments addObject: @{
                                                   @"file_name": attachment.filename,
                                                   @"mime_type": attachment.mimeType ? attachment.mimeType : @"",
