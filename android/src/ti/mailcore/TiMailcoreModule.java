@@ -34,9 +34,13 @@ import com.libmailcore.AbstractMessage;
 import com.libmailcore.MessageHeader;
 import com.libmailcore.MessageParser;
 import com.libmailcore.MessageBuilder;
+import com.libmailcore.Attachment;
+import com.libmailcore.AbstractPart;
 
 import java.util.HashMap;
 import java.util.ArrayList;
+
+import android.util.Base64;
 
 @Kroll.module(name="TiMailcore", id="ti.mailcore")
 public class TiMailcoreModule extends KrollModule {
@@ -281,21 +285,39 @@ public class TiMailcoreModule extends KrollModule {
 
 		protected IMAPOperation createOperation(IMAPSession session) {
 			int requestKind = IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaders |
-			IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaderSubject;
+			IMAPMessagesRequestKind.IMAPMessagesRequestKindHeaderSubject |
+			IMAPMessagesRequestKind.IMAPMessagesRequestKindExtraHeaders |
+			IMAPMessagesRequestKind.IMAPMessagesRequestKindStructure;
 
-			return session.fetchMessagesByUIDOperation(folder, requestKind, uids);
+			IMAPFetchMessagesOperation op = session.fetchMessagesByUIDOperation(folder, requestKind, uids);
+			ArrayList extra_headers = new ArrayList();
+			extra_headers.add("X-EN-OrigIP");
+			extra_headers.add("Received-SPF");
+			extra_headers.add("x-test");
+			op.setExtraHeaders(extra_headers);
+			return op;
 		}
 
 		protected Object formatResult(IMAPOperation operation) {
 			java.util.List<IMAPMessage> messages = ((IMAPFetchMessagesOperation)operation).messages();
 			ArrayList result = new ArrayList();
 			for(IMAPMessage message : messages) {
-				KrollDict data = new KrollDict();
-				data.put("uid", message.uid());
-				data.put("sender", message.header().sender().displayName());
-				data.put("subject", message.header().subject());
+				KrollDict email_result = new KrollDict();
+				email_result.put("uid", message.uid());
+				email_result.put("sender_name", (message.header().sender().displayName() != null) ? message.header().sender().displayName() : "");
+				email_result.put("sender_mailbox", (message.header().sender().mailbox() != null) ? message.header().sender().mailbox() : "");
+				email_result.put("subject", (message.header().subject() != null) ? message.header().subject() : "");
+				email_result.put("received_time", (message.header().receivedDate() != null) ? message.header().receivedDate().toString() : "");
+				email_result.put("has_attachments", (message.attachments() != null) && message.attachments().size() > 0 ? true : false);
 
-				result.add(data);
+				for(String hname : message.header().allExtraHeadersNames()) {
+					String extra_header = message.header().extraHeaderValueForName(hname);
+					if(extra_header != null) {
+						email_result.put(hname, extra_header);
+					}
+				}
+
+				result.add(email_result);
 			}
 
 			return result.toArray(new KrollDict[result.size()]);
@@ -329,6 +351,20 @@ public class TiMailcoreModule extends KrollModule {
 			KrollDict email = _messageToJSON(parser);
 			if(parser != null) {
 				email.put("body", parser.htmlBodyRendering());
+				if(parser.attachments() != null) {
+					ArrayList attachments = new ArrayList();
+					for(AbstractPart attachment_abstract : parser.attachments()) {
+						Attachment attachment = (Attachment)attachment_abstract;
+						KrollDict attachment_object = new KrollDict();
+
+						attachment_object.put("file_name", attachment.filename() == null ? "" : attachment.filename());
+						attachment_object.put("mime_type", attachment.mimeType() == null ? "" : attachment.mimeType());
+						attachment_object.put("data", attachment.data() == null ? "" : Base64.encodeToString(attachment.data(), Base64.NO_WRAP));
+
+						attachments.add(attachment_object);
+					}
+					email.put("attachments", attachments.toArray(new Object[attachments.size()]));
+				}
 			}
 			return email;
 		}
