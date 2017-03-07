@@ -193,7 +193,7 @@ def build_module(manifest,config):
 
 def verify_build_arch(manifest, config):
 	binaryname = 'lib%s.a' % manifest['moduleid']
-	binarypath = os.path.join('../example_app/modules/iphone/ti.mailcore/1.0.0', binaryname)
+	binarypath = os.path.join('build', binaryname)
 	manifestarch = set(manifest['architectures'].split(' '))
 
 	output = subprocess.check_output('xcrun lipo -info %s' % binarypath, shell=True)
