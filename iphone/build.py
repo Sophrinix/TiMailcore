@@ -3,7 +3,7 @@
 # Appcelerator Titanium Module Packager
 #
 #
-import os, subprocess, sys, glob, string
+import os, subprocess, sys, glob, string, shutil
 import zipfile
 from datetime import date
 
@@ -225,6 +225,7 @@ def package_module(manifest,mf,config):
 	zf.write(mf,'%s/manifest' % modulepath)
 	libname = 'lib%s.a' % moduleid
 	zf.write('build/%s' % libname, '%s/%s' % (modulepath,libname))
+	shutil.copy('build/%s' % libname, '../example_app/modules/iphone/ti.mailcore/1.0.0')
 	docs = generate_doc(config)
 	if docs!=None:
 		for doc in docs:
