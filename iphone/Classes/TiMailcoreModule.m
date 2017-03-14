@@ -244,6 +244,28 @@
     }];
 }
 
+- (void)getFolderInfo:(id)args {
+    ENSURE_ARG_COUNT(args, 3);
+    MCOIMAPSession * session = [self _applyCredentials:[args objectAtIndex:0] smpt: NO];
+    
+    MCOIMAPFolderInfoOperation * op = [session folderInfoOperation:[args objectAtIndex:1]];
+    [op start:^(NSError * error, MCOIMAPFolderInfo * info) {
+        if(error) {
+            [[args objectAtIndex:1] call:@[[error description], @[]] thisObject:nil];
+        } else {
+            NSMutableDictionary * result = [[NSMutableDictionary alloc] init];
+            
+            [result setObject:[NSNumber numberWithUnsignedLong: [info uidNext]] forKey:@"UIDNEXT"];
+            [result setObject:[NSNumber numberWithUnsignedLong: [info uidValidity]] forKey:@"UIDVALIDITY"];
+            [result setObject:[NSNumber numberWithUnsignedLong: [info modSequenceValue]] forKey:@"HIGHESTMODSEQ"];
+            [result setObject:[NSNumber numberWithInt: [info messageCount]] forKey:@"messages_count"];
+            
+            [[args objectAtIndex:2] call:@[[NSNull null], result] thisObject:nil];
+        }
+    }];
+}
+
+
 
 - (void)getMail:(id)args {
     ENSURE_ARG_COUNT(args, 4);
