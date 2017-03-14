@@ -22,6 +22,7 @@ import com.libmailcore.IMAPMessage;
 import com.libmailcore.IMAPFetchContentOperation;
 import com.libmailcore.IMAPFetchMessagesOperation;
 import com.libmailcore.IMAPFetchFoldersOperation;
+import com.libmailcore.IMAPFolderInfoOperation;
 import com.libmailcore.IMAPMessagesRequestKind;
 import com.libmailcore.IMAPFolder;
 import com.libmailcore.SMTPSession;
@@ -269,6 +270,37 @@ public class TiMailcoreModule extends KrollModule {
 		}
 	}
 
+
+	// Get Info for a specific folder
+	@Kroll.method
+	public void getFolderInfo(KrollDict imap, String folder, KrollFunction cb) {
+		CallbackCaller caller = new GetFolderInfoCaller(imap, folder, cb);
+		caller.start();
+	}
+	private class GetFolderInfoCaller extends CallbackCallerIMAP {
+		private String folder;
+
+		public GetFolderInfoCaller(KrollDict credentials, String f, KrollFunction cb) {
+			super(credentials, cb, false);
+			folder = f;
+		}
+
+		protected IMAPOperation createOperation(IMAPSession session) {
+			return session.folderInfoOperation(folder);
+		}
+
+		protected Object formatResult(IMAPOperation operation) {
+			IMAPFolderInfoOperation info_op = (IMAPFolderInfoOperation)operation;
+
+			KrollDict result = new KrollDict();
+			result.put("UIDNEXT", info_op.info().uidNext());
+			result.put("UIDVALIDITY", info_op.info().uidValidity());
+			result.put("HIGHESTMODSEQ", info_op.info().modSequenceValue());
+			result.put("messages_count", info_op.info().messageCount());
+
+			return result;
+		}
+	}
 
 	// Get basic info of a mail folder with optional uid range
 	@Kroll.method
